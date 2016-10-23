@@ -53,9 +53,9 @@ def store_userinput(input_check):
 
 
 def speech_to_Text():
-    client_id = "637371925027-ia8s5a41fialrb0hcjlaoq4gaa41d38o.apps.googleusercontent.com"  # this is the google api client id
-    client_secret = "-KyaxAejOWUzvyGUn-PtcCnd"  # this is the google api client secret key
-    api_key = "AIzaSyBRkgyt05ybcRG3Jogp7sIts0jcxPqi7TY"
+    client_id = ""  # this is the google api client id
+    client_secret = ""  # this is the google api client secret key
+    api_key = ""
     r = sr.Recognizer()
     with sr.Microphone() as source:
         CHUNK = 1024
@@ -156,8 +156,8 @@ def main():
     print("--")
     # duration = float(input("How much time you need to record for ?"))
     # record_something(duration)  just trying to pause the thing
-    client_id = "637371925027-ia8s5a41fialrb0hcjlaoq4gaa41d38o.apps.googleusercontent.com"  # this is the google api client id
-    client_secret = "-KyaxAejOWUzvyGUn-PtcCnd"  # this is the google api client secret key
+    client_id = ""  # this is the google api client id
+    client_secret = ""  # this is the google api client secret key
     Text_to_speech()  # Calls the virtual assistant to speech
     # speech_to_Text()  # calling the function
     while (True):
