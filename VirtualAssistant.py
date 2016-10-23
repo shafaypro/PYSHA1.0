@@ -2,19 +2,55 @@ import pyaudio  # importing the header file of the pyaudio
 import wave  # Importing the wave of for the recording(This isthe format for the recording which is used .wav
 import speech_recognition as sr  # Importing the speech recognition file for the code.!!
 import pyttsx
-import numpy
-import pandas
 import time
 import os
-import nltk  # for the natural language processing later on
+import datetime
+import tkinter # This is later for the GUI purposes
+'''
+// This build is heavily underprogress by Muhammad Shafay Amjad, If you want to check all the dependencies,
+and want to contribute to improve the particular algorithum, check Repository.
+https://github.com/shafaypro/VirtualAssistant
+Info Dated: 24/10/2016
+
+'''
+
+
+def day_check():
+    current_date = datetime.datetime.now()
+    full_date = str(current_date.day) + ' ' + time.strftime('%A') + ' ' + time.strftime('%B')
+    Text_to_speech("The current date is " + full_date)
+    return
+
+
+def time_check():
+    print('')
+    current_time = time.strftime('%H:%M:%S')
+    current_date = time.strftime('%x')
+    full_date = time.strftime('%A') + ' ' + time.strftime('%B')
+    Text_to_speech("The date is " + full_date)
+    return
+
+
+def stored_answers():
+    print("--")
+    return
+    # This will have the already stored items
+
 
 def PYSHA_QUESTIONS():
     print("")
+    return
     # here Pysha Will be able to ask the question based in particular things on common.
 
-def store_responce():
-    print("")
+
+def store_userinput(input_check):
+    file_out = open("USERINPUT.txt", "a")
+    file_out.writelines("USER SAID: \t" + input_check)
+    file_out.write("\n")  # ending the line with the next line
+    file_out.close()
+    return
     # This function will be responsible for storing the responses so that it may able to answer in the future.
+
 
 def speech_to_Text():
     client_id = "637371925027-ia8s5a41fialrb0hcjlaoq4gaa41d38o.apps.googleusercontent.com"  # this is the google api client id
@@ -90,10 +126,11 @@ def record_something(duration):
     wf.close()
 
 
-def Text_to_speech():
+def Text_to_speech(input='HI! my name is PYSHA and i am your assistant'):
     engine = pyttsx.init()
-    engine.say('HI! my name is Shafay2 and i am your virtual assistant')
+    engine.say(input)
     engine.runAndWait()
+    return
 
 
 def speech_to_text_wav(file_to_recognize):
@@ -106,9 +143,11 @@ def speech_to_text_wav(file_to_recognize):
         print("you said: " + total_saying)  # recognize speech using Google Speech Recognition
         # here i will be working on latter analysis
         total_saying = str(total_saying)  # converting the total saying to the strings
-
-        if total_saying == "quit":
+        # store_userinput(total_saying)
+        if (total_saying.strip()).lower() == "quit":
             exit()  # exiting the program
+        else:
+            store_userinput(total_saying)  # this stores the Specified Input we said Regerding to something
     except LookupError:  # speech is unintelligible
         print("Could not understand audio")
 
@@ -120,9 +159,10 @@ def main():
     client_id = "637371925027-ia8s5a41fialrb0hcjlaoq4gaa41d38o.apps.googleusercontent.com"  # this is the google api client id
     client_secret = "-KyaxAejOWUzvyGUn-PtcCnd"  # this is the google api client secret key
     Text_to_speech()  # Calls the virtual assistant to speech
-    speech_to_Text()  # calling the function
-    #record_something(10)
-    speech_to_text_wav("output.wav")
+    # speech_to_Text()  # calling the function
+    while (True):
+        record_something(10)
+        speech_to_text_wav("output.wav")
 
 
 if __name__ == '__main__':
