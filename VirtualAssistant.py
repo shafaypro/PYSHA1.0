@@ -6,11 +6,25 @@ import time
 import os
 import datetime
 import tkinter # This is later for the GUI purposes
+
+
 '''
-// This build is heavily underprogress by Muhammad Shafay Amjad, If you want to check all the dependencies,
-and want to contribute to improve the particular algorithum, check Repository.
+// This build is heavily under progress by Muhammad Shafay Amjad, If you want to check all the dependencies,
+and want to contribute to improve the particular algorithm, check Repository.
 https://github.com/shafaypro/VirtualAssistant
 Info Dated: 24/10/2016
+
+User Guideline:
+
+Wherever you run this Project, the basic dependencies are converted in to the local machine,
+
+--> The machine tells about her self and then wait for the user to have the specified an speech input,
+
+The device of the microphone is connected and then it is parsed to the pyaudio where the input is then
+
+Converted to the Audio file  Formated as WAV, under the FLAC encoding, then it is parsed to the google api,
+
+since the api is then accessed and the chunks of the audio is converted into the string and then returned into the string
 
 '''
 
@@ -53,9 +67,9 @@ def store_userinput(input_check):
 
 
 def speech_to_Text():
-    client_id = ""  # this is the google api client id
-    client_secret = ""  # this is the google api client secret key
-    api_key = ""
+    client_id = "637371925027-ia8s5a41fialrb0hcjlaoq4gaa41d38o.apps.googleusercontent.com"  # this is the google api client id
+    client_secret = "-KyaxAejOWUzvyGUn-PtcCnd"  # this is the google api client secret key
+    api_key = "AIzaSyBRkgyt05ybcRG3Jogp7sIts0jcxPqi7TY"
     r = sr.Recognizer()
     with sr.Microphone() as source:
         CHUNK = 1024
@@ -133,6 +147,12 @@ def Text_to_speech(input='HI! my name is PYSHA and i am your assistant'):
     return
 
 
+def Textual_Analysis(Inp_MSG='NONE'):
+    Inp_MSG = Inp_MSG.strip()  # stripping for the extra white spaces
+    if Inp_MSG.__contains__("current time"):
+        print("")
+
+
 def speech_to_text_wav(file_to_recognize):
     r = sr.Recognizer()
     with sr.WavFile(str(file_to_recognize)) as source:  # use "test.wav" as the audio source
@@ -148,6 +168,7 @@ def speech_to_text_wav(file_to_recognize):
             exit()  # exiting the program
         else:
             store_userinput(total_saying)  # this stores the Specified Input we said Regerding to something
+            Textual_Analysis(total_saying)
     except LookupError:  # speech is unintelligible
         print("Could not understand audio")
 
@@ -156,8 +177,8 @@ def main():
     print("--")
     # duration = float(input("How much time you need to record for ?"))
     # record_something(duration)  just trying to pause the thing
-    client_id = ""  # this is the google api client id
-    client_secret = ""  # this is the google api client secret key
+    client_id = "637371925027-ia8s5a41fialrb0hcjlaoq4gaa41d38o.apps.googleusercontent.com"  # this is the google api client id
+    client_secret = "-KyaxAejOWUzvyGUn-PtcCnd"  # this is the google api client secret key
     Text_to_speech()  # Calls the virtual assistant to speech
     # speech_to_Text()  # calling the function
     while (True):
