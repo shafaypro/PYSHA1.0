@@ -5,6 +5,8 @@ import pyttsx
 import time
 import os
 import datetime
+import webbrowser
+import wikipedia
 import tkinter # This is later for the GUI purposes
 
 
@@ -29,6 +31,33 @@ since the api is then accessed and the chunks of the audio is converted into the
 '''
 
 
+def search_browser(text_input):
+    print('-This is for the searching on browser-')
+    try:
+        url = 'http://google.com/search?q=' + text_input  # Creating or generating a google link for the particular file
+        webbrowser.open(url)
+        return
+
+    except sr.RequestError:
+        Text_to_speech("I'm sorry, I couldn't reach google")  # Calling the Function so that it can be identified that ,machine can speaks for itself
+        return
+
+
+def search_wikipedia(text_input):
+    suggested_text = wikipedia.suggest(text_input)
+    try:
+        wiki_page = wikipedia.page(suggested_text)  # this opens up the wiki page for the particular thing
+        Text_to_speech(str(wiki_page.title)) # asking the machine to speak this specified word
+        Text_to_speech(wikipedia.summary(suggested_text, sentences=3))
+        # summary_text = wikipedia.summary(suggested_text, sentences=4)  # search on the wikipedia!
+        wiki_link = str(wiki_page.url)  # Converts the url of the wiki links to the url.
+        wiki_images = wiki_page.images  # Gets all the images link references. as a list
+        webbrowser.open(wiki_link)  # opens the link on the web browser and then search the specified text link
+        return
+    except:
+        Text_to_speech("Sorry i couldn't connect to the wikipedia!! nor find a relevent link, there must be a connection problem")
+        return
+
 def day_check():
     current_date = datetime.datetime.now()
     full_date = str(current_date.day) + ' ' + time.strftime('%A') + ' ' + time.strftime('%B')
@@ -51,6 +80,9 @@ def stored_answers():
     # This will have the already stored items
 
 
+def Textual_Analysis(Inp_MSG='NONE'):
+    return
+
 def PYSHA_QUESTIONS():
     print("")
     return
@@ -67,9 +99,9 @@ def store_userinput(input_check):
 
 
 def speech_to_Text():
-    client_id = "637371925027-ia8s5a41fialrb0hcjlaoq4gaa41d38o.apps.googleusercontent.com"  # this is the google api client id
-    client_secret = "-KyaxAejOWUzvyGUn-PtcCnd"  # this is the google api client secret key
-    api_key = "AIzaSyBRkgyt05ybcRG3Jogp7sIts0jcxPqi7TY"
+    client_id = ""  # this is the google api client id
+    client_secret = ""  # this is the google api client secret key
+    api_key = ""
     r = sr.Recognizer()
     with sr.Microphone() as source:
         CHUNK = 1024
@@ -147,11 +179,6 @@ def Text_to_speech(input='HI! my name is PYSHA and i am your assistant'):
     return
 
 
-def Textual_Analysis(Inp_MSG='NONE'):
-    Inp_MSG = Inp_MSG.strip()  # stripping for the extra white spaces
-    if Inp_MSG.__contains__("current time"):
-        print("")
-
 
 def speech_to_text_wav(file_to_recognize):
     r = sr.Recognizer()
@@ -164,11 +191,22 @@ def speech_to_text_wav(file_to_recognize):
         # here i will be working on latter analysis
         total_saying = str(total_saying)  # converting the total saying to the strings
         # store_userinput(total_saying)
-        if (total_saying.strip()).lower() == "quit":
+        if (total_saying.strip()).lower() == "quit" or (total_saying.strip()).lower() == "stop listening":
             exit()  # exiting the program
         else:
-            store_userinput(total_saying)  # this stores the Specified Input we said Regerding to something
-            Textual_Analysis(total_saying)
+            # this stores the Specified Input we said Regerding to something
+            # Textual_Analysis(total_saying)
+            if (total_saying.lower()).startswith('search for'):
+                Text_to_speech("Opening a Browser For you.")
+                store_userinput("Searching on Browser :" + total_saying[10:])
+                search_browser(text_input=total_saying[10:])  # sending every remanining thing to the Browser to browse for
+            elif total_saying.lower().__contains__('on wikipedia') and total_saying.startswith('search'):
+                total_saying = total_saying.lower()  # this converts the string to the lower case
+                total_saying = total_saying.replace('search', '')  # replacing the start with the empty string
+                total_saying = total_saying.replace('on Wikipedia', '')  # replacing the on wikiepdia with empty string
+                Text_to_speech("Searching on WIkipedia..")
+                search_wikipedia(total_saying)  # calling the wikipedia search function , for the results
+                # .###.....
     except LookupError:  # speech is unintelligible
         print("Could not understand audio")
 
@@ -177,11 +215,11 @@ def main():
     print("--")
     # duration = float(input("How much time you need to record for ?"))
     # record_something(duration)  just trying to pause the thing
-    client_id = "637371925027-ia8s5a41fialrb0hcjlaoq4gaa41d38o.apps.googleusercontent.com"  # this is the google api client id
-    client_secret = "-KyaxAejOWUzvyGUn-PtcCnd"  # this is the google api client secret key
+    client_id = ""  # this is the google api client id
+    client_secret = ""  # this is the google api client secret key
     Text_to_speech()  # Calls the virtual assistant to speech
     # speech_to_Text()  # calling the function
-    while (True):
+    while True:
         record_something(10)
         speech_to_text_wav("output.wav")
 
