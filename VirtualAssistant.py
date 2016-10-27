@@ -1,16 +1,13 @@
 import datetime
 import pyttsx
 import time  # the time module for the specified intervals
-import wave  # Importing the wave of for the recording(This isthe format for the recording which is used .wav
-import webbrowser
-from random import *
-
+import wave  # Importing the wave of for the recording(This is the format for the recording which is used .wav
+import webbrowser   # Using the web browser , For the browsing purposes
+from random import *  # Using the random  function for the creation
 import pyaudio  # importing the header file of the pyaudio
 import speech_recognition as sr  # Importing the speech recognition file for the code.!!
-import wikipedia
-from PyDictionary import PyDictionary
-from random import *
-import wolframalpha
+import wikipedia  # using the wikipedia model for accessing the wikipedia and using the modules for the defending purposes.!!
+
 
 '''
 // This build is heavily under progress by Muhammad Shafay Amjad, If you want to check all the dependencies,
@@ -28,11 +25,19 @@ The device of the microphone is connected and then it is parsed to the pyaudio w
 
 Converted to the Audio file  Formated as WAV, under the FLAC encoding, then it is parsed to the google api,
 
-since the api is then accessed and the chunks of the audio is converted into the string and then returned into the string
+since the api is then accessed and the chunks of the audio is converted into the string and then returned into the string.
+
+There are some already stored procedures for the particular messages , like if a message starts from the :::
+
+Search for <--- This opens up the browser for the result so that the Virtual assitant is able to read from the data!!!
+
+Stop,stop listening,quit <---- This will results in the Quiting , exiting for the virtual assistant!!
+
 
 '''
 
 
+# The Below function will be used to search on the browser and then show the desire result
 def search_browser(text_input):
     print('-This is for the searching on browser-')
     try:
@@ -45,14 +50,16 @@ def search_browser(text_input):
             "I'm sorry, I couldn't reach google")  # Calling the Function so that it can be identified that ,machine can speaks for itself
         return
 
+# The below function is responsible for the search on the wikipedia.
 
+# searching on the wikipedia and then asking the pysha to speak the respectable result!!
 def search_wikipedia(text_input):
     suggested_text = text_input.strip()  # strips the extra white space
     print(suggested_text)
     # suggested_string = wikipedia.suggest(suggested_text)  # now going for the suggestion
     try:
         wiki_page = wikipedia.page(suggested_text)  # this opens up the wiki page for the particular thing
-        text_to_speech(str(wiki_page.title))  # asking the machine to speak this specified word
+        #text_to_speech(str(wiki_page.title))  # asking the machine to speak this specified word
         # summary_text = wikipedia.summary(suggested_text, sentences=4)  # search on the wikipedia!
         wiki_link = str(wiki_page.url)  # Converts the url of the wiki links to the url.
         wiki_images = wiki_page.images  # Gets all the images link references. as a list
@@ -63,6 +70,8 @@ def search_wikipedia(text_input):
         text_to_speech(
             "Sorry i couldn't connect to the wikipedia!! nor find a relevant link, there must be a connection problem")
         return
+
+# The below function is responsible for the running of the chat with the below function
 
 
 def chat(input):
@@ -182,6 +191,8 @@ def chat(input):
             if ranNum == 3:
                 text_to_speech("No comment")
 
+# if there is any person question regerding to the Virtual Assistant go for this
+
 
 def Personal_PYSHA(text_input=""):
     text_input = text_input.strip()  # striping the extra white spaces.
@@ -202,6 +213,8 @@ def Personal_PYSHA(text_input=""):
         for each_hobby in hobbies:  # Iterating to each of the loops
             text_to_speech(str(each_hobby))  # Sending the each string to the Hobbies.
         # This will send all the related hobbies to the specified Place.
+    elif text_input == "gender":
+        text_to_speech("Female")
 
 
 def day_check():
@@ -209,11 +222,15 @@ def day_check():
     text_to_speech("The current date is " + str(current_date.date()))
     return
 
+# Checking the time for the computer while the
+
 
 def time_check():
     current_time = time.strftime('%H:%M:%S')
     text_to_speech("The time is " + current_time)
     return
+
+# storing the respectable input for the user  while the computer will be able to use the resources and speak
 
 
 def store_userinput(input_check):
@@ -222,7 +239,9 @@ def store_userinput(input_check):
     file_out.write("\n")  # ending the line with the next line
     file_out.close()
     return
-    # This function will be responsible for storing the responses so that it may able to answer in the future.
+    # This function will be responsible for storing the responses so that it may able to answer in the future.pute
+
+# Converting the spoken string to the speech , so that the call is Visible
 
 
 def speech_to_Text():
@@ -257,6 +276,8 @@ def speech_to_Text():
 
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
+
+# if you want to record for the specific interval of time
 
 
 def record_something(duration):
@@ -297,6 +318,8 @@ def record_something(duration):
     wf.setframerate(RATE)
     wf.writeframes(b''.join(frames))
     wf.close()
+#
+# Converting the text to speech using the pysha personal assistant and then specifing the input!
 
 
 def text_to_speech(text_input='HI! my name is PYSHA and i am your assistant'):
@@ -304,6 +327,8 @@ def text_to_speech(text_input='HI! my name is PYSHA and i am your assistant'):
     engine.say(text_input)
     engine.runAndWait()
     return
+
+# Checking the input of the speech to text so that the result can cbe picked up and then stored in the displat ..!!!
 
 
 def speech_to_text_wav(file_to_recognize):
@@ -326,7 +351,11 @@ def speech_to_text_wav(file_to_recognize):
         print("UNKNOWN!!")
 
 # The follwing function will be responsible for the text to be parsed regerding to the certain input.
-def process_text_input(total_saying = ""):
+
+# keep in mind to use the natural language processing ,, www.pythonprogramming.org
+
+
+def process_text_input(total_saying=""):
     if (total_saying.strip()).lower() == "quit" or (
                 total_saying.strip()).lower() == "stop listening" or total_saying.strip().lower() == 'stop':
                 text_to_speech("Bye! my friend")
@@ -381,9 +410,8 @@ def main():
     text_to_speech()  # Calls the virtual assistant to speech
     # speech_to_Text()  # calling the function
     while True:
-        record_something(10)
+        record_something(7)
         speech_to_text_wav("output.wav")
-
 
 if __name__ == '__main__':
     main()  # Calling the main Function .!!
