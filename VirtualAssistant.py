@@ -2,12 +2,13 @@ import datetime
 import pyttsx
 import time  # the time module for the specified intervals
 import wave  # Importing the wave of for the recording(This is the format for the recording which is used .wav
-import webbrowser   # Using the web browser , For the browsing purposes
+import webbrowser  # Using the web browser , For the browsing purposes
 from random import *  # Using the random  function for the creation
 import pyaudio  # importing the header file of the pyaudio
 import speech_recognition as sr  # Importing the speech recognition file for the code.!!
-import wikipedia  # using the wikipedia model for accessing the wikipedia and using the modules for the defending purposes.!!
-
+import \
+    wikipedia  # using the wikipedia model for accessing the wikipedia and using the modules for the defending purposes.!!
+from bs4 import BeautifulSoup  # imporing the beautiful soup package.as
 
 '''
 // This build is heavily under progress by Muhammad Shafay Amjad, If you want to check all the dependencies,
@@ -37,6 +38,32 @@ Stop,stop listening,quit <---- This will results in the Quiting , exiting for th
 '''
 
 
+# The below function will be used regerding to the twitter accessing and stuff
+def twitter_access():
+    print("Granting the twitter Access")
+
+
+# The below function will be used for the messaging and getting the messages from the facebook
+
+def messenger_access():
+    print("MESSEBGER ACCESS FOR SENDING AND RECIEVING MESSSAGES")
+
+# The below function will be used to access the facebook and all the stuff.
+def facebook_access():
+    print("FACEBOOK Access for accessing and recieving facebook messages")
+
+
+# This will be used to access the instagram, so that you can access the current features
+def instagram_access():
+    print("Granting the instagram Access and checking")
+
+# This function will be used to access the social medias and choose the correct social media for the particular stuff.
+
+
+def social_media_access():
+    print("")
+
+
 # The Below function will be used to search on the browser and then show the desire result
 def search_browser(text_input):
     print('-This is for the searching on browser-')
@@ -50,16 +77,19 @@ def search_browser(text_input):
             "I'm sorry, I couldn't reach google")  # Calling the Function so that it can be identified that ,machine can speaks for itself
         return
 
+
 # The below function is responsible for the search on the wikipedia.
 
 # searching on the wikipedia and then asking the pysha to speak the respectable result!!
+
+
 def search_wikipedia(text_input):
     suggested_text = text_input.strip()  # strips the extra white space
     print(suggested_text)
     # suggested_string = wikipedia.suggest(suggested_text)  # now going for the suggestion
     try:
         wiki_page = wikipedia.page(suggested_text)  # this opens up the wiki page for the particular thing
-        #text_to_speech(str(wiki_page.title))  # asking the machine to speak this specified word
+        # text_to_speech(str(wiki_page.title))  # asking the machine to speak this specified word
         # summary_text = wikipedia.summary(suggested_text, sentences=4)  # search on the wikipedia!
         wiki_link = str(wiki_page.url)  # Converts the url of the wiki links to the url.
         wiki_images = wiki_page.images  # Gets all the images link references. as a list
@@ -70,6 +100,7 @@ def search_wikipedia(text_input):
         text_to_speech(
             "Sorry i couldn't connect to the wikipedia!! nor find a relevant link, there must be a connection problem")
         return
+
 
 # The below function is responsible for the running of the chat with the below function
 
@@ -191,6 +222,7 @@ def chat(input):
             if ranNum == 3:
                 text_to_speech("No comment")
 
+
 # if there is any person question regerding to the Virtual Assistant go for this
 
 
@@ -200,7 +232,7 @@ def Personal_PYSHA(text_input=""):
         text_to_speech("PYSHA")
         return
     elif text_input == "age":
-        b_date = datetime.date(2016, 10, 24)   # specifing the creation date.
+        b_date = datetime.date(2016, 10, 24)  # specifing the creation date.
         c_date = datetime.date.today()
         # now subtract the date from the date of creation
         text_to_speech((c_date - b_date))  # this prints the age of the Virtual Assistant , which returns the date.
@@ -212,7 +244,7 @@ def Personal_PYSHA(text_input=""):
         hobbies = ["Playing a Game", "Collecting your History", "Watching Football"]
         for each_hobby in hobbies:  # Iterating to each of the loops
             text_to_speech(str(each_hobby))  # Sending the each string to the Hobbies.
-        # This will send all the related hobbies to the specified Place.
+            # This will send all the related hobbies to the specified Place.
     elif text_input == "gender":
         text_to_speech("Female")
 
@@ -222,6 +254,7 @@ def day_check():
     text_to_speech("The current date is " + str(current_date.date()))
     return
 
+
 # Checking the time for the computer while the
 
 
@@ -229,6 +262,7 @@ def time_check():
     current_time = time.strftime('%H:%M:%S')
     text_to_speech("The time is " + current_time)
     return
+
 
 # storing the respectable input for the user  while the computer will be able to use the resources and speak
 
@@ -240,6 +274,7 @@ def store_userinput(input_check):
     file_out.close()
     return
     # This function will be responsible for storing the responses so that it may able to answer in the future.pute
+
 
 # Converting the spoken string to the speech , so that the call is Visible
 
@@ -276,6 +311,7 @@ def speech_to_Text():
 
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
+
 
 # if you want to record for the specific interval of time
 
@@ -318,6 +354,8 @@ def record_something(duration):
     wf.setframerate(RATE)
     wf.writeframes(b''.join(frames))
     wf.close()
+
+
 #
 # Converting the text to speech using the pysha personal assistant and then specifing the input!
 
@@ -327,6 +365,7 @@ def text_to_speech(text_input='HI! my name is PYSHA and i am your assistant'):
     engine.say(text_input)
     engine.runAndWait()
     return
+
 
 # Checking the input of the speech to text so that the result can cbe picked up and then stored in the displat ..!!!
 
@@ -350,6 +389,7 @@ def speech_to_text_wav(file_to_recognize):
     except sr.UnknownValueError:
         print("UNKNOWN!!")
 
+
 # The follwing function will be responsible for the text to be parsed regerding to the certain input.
 
 # keep in mind to use the natural language processing ,, www.pythonprogramming.org
@@ -357,48 +397,48 @@ def speech_to_text_wav(file_to_recognize):
 
 def process_text_input(total_saying=""):
     if (total_saying.strip()).lower() == "quit" or (
-                total_saying.strip()).lower() == "stop listening" or total_saying.strip().lower() == 'stop':
-                text_to_speech("Bye! my friend")
-                exit()  # exiting the program
+            total_saying.strip()).lower() == "stop listening" or total_saying.strip().lower() == 'stop':
+        text_to_speech("Bye! my friend")
+        exit()  # exiting the program
     else:
-            # this stores the Specified Input we said Regerding to something
-            # Textual_Analysis(total_saying)
-            '''
+        # this stores the Specified Input we said Regerding to something
+        # Textual_Analysis(total_saying)
+        '''
             Below is the place where are your working on!!!
 
             '''
-            if (total_saying.lower()).startswith('search for'):
-                text_to_speech("Opening a Browser For you.")
-                store_userinput("Searching on Browser :" + total_saying[10:])
-                search_browser(
-                    text_input=total_saying[10:])  # sending every remanining thing to the Browser to browse for
+        if (total_saying.lower()).startswith('search for'):
+            text_to_speech("Opening a Browser For you.")
+            store_userinput("Searching on Browser :" + total_saying[10:])
+            search_browser(
+                text_input=total_saying[10:])  # sending every remanining thing to the Browser to browse for
 
-            elif total_saying.lower().__contains__('on wikipedia') and total_saying.startswith('search'):
-                total_saying = total_saying.lower()  # this converts the string to the lower case
-                total_saying = total_saying.replace('search', '')  # replacing the start with the empty string
-                total_saying = total_saying.replace('on wikipedia', '')  # replacing the on wikiepdia with empty string
-                text_to_speech("Searching on WIkipedia..")
-                search_wikipedia(total_saying)  # calling the wikipedia search function , for the results
+        elif total_saying.lower().__contains__('on wikipedia') and total_saying.startswith('search'):
+            total_saying = total_saying.lower()  # this converts the string to the lower case
+            total_saying = total_saying.replace('search', '')  # replacing the start with the empty string
+            total_saying = total_saying.replace('on wikipedia', '')  # replacing the on wikiepdia with empty string
+            text_to_speech("Searching on WIkipedia..")
+            search_wikipedia(total_saying)  # calling the wikipedia search function , for the results
 
-            elif total_saying.lower().startswith("what is the date") or total_saying.lower() == 'date':
-                # Here you will be required to input the date
-                day_check()  # This calls the day check
-            elif total_saying.lower().startswith("what is the time") or total_saying.lower() == 'time':
-                time_check()  # this checks the current time according to the specified state
+        elif total_saying.lower().startswith("what is the date") or total_saying.lower() == 'date':
+            # Here you will be required to input the date
+            day_check()  # This calls the day check
+        elif total_saying.lower().startswith("what is the time") or total_saying.lower() == 'time':
+            time_check()  # this checks the current time according to the specified state
 
-            # Create a Grammer , that represents the questions regerding to the respectable machine
-            elif total_saying.lower().startswith("what is your"):
-                # here you need to create the question saying file so that the file is readable.
-                '''
+        # Create a Grammer , that represents the questions regerding to the respectable machine
+        elif total_saying.lower().startswith("what is your"):
+            # here you need to create the question saying file so that the file is readable.
+            '''
                 Write the Respectable question in this format so that, the Agent learns from the file.
 
                 '''
-                total_saying = total_saying.replace("what is your",
-                                                    "")  # replacing the words so that it will be easier for the program to Check the last thing
-                Personal_PYSHA(total_saying)
-            else:
-                chat(total_saying)
-                # .###.....
+            total_saying = total_saying.replace("what is your",
+                                                "")  # replacing the words so that it will be easier for the program to Check the last thing
+            Personal_PYSHA(total_saying)
+        else:
+            chat(total_saying)
+            # .###.....
 
 
 def main():
@@ -412,6 +452,7 @@ def main():
     while True:
         record_something(7)
         speech_to_text_wav("output.wav")
+
 
 if __name__ == '__main__':
     main()  # Calling the main Function .!!
