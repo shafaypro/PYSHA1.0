@@ -1,14 +1,17 @@
 import datetime
-import pyttsx
+import os
+import pyttsx  # Python text to speech and speech to text
 import time  # the time module for the specified intervals
 import wave  # Importing the wave of for the recording(This is the format for the recording which is used .wav
 import webbrowser  # Using the web browser , For the browsing purposes
 from random import *  # Using the random  function for the creation
+from tkinter import *  # For the GUI Tkinter package
 import pyaudio  # importing the header file of the pyaudio
 import speech_recognition as sr  # Importing the speech recognition file for the code.!!
-import \
-    wikipedia  # using the wikipedia model for accessing the wikipedia and using the modules for the defending purposes.!!
-from bs4 import BeautifulSoup  # imporing the beautiful soup package.as
+import wikipedia  # using the wikipedia model
+from bs4 import BeautifulSoup  # beautiful soup
+import urllib  # For the scrapping of the urllub
+import threading
 
 '''
 // This build is heavily under progress by Muhammad Shafay Amjad, If you want to check all the dependencies,
@@ -24,7 +27,7 @@ Wherever you run this Project, the basic dependencies are converted in to the lo
 
 The device of the microphone is connected and then it is parsed to the pyaudio where the input is then
 
-Converted to the Audio file  Formated as WAV, under the FLAC encoding, then it is parsed to the google api,
+Converted to the Audio file  Formatted as WAV, under the F.L.A.C encoding, then it is parsed to the google api,
 
 since the api is then accessed and the chunks of the audio is converted into the string and then returned into the string.
 
@@ -34,38 +37,189 @@ Search for <--- This opens up the browser for the result so that the Virtual ass
 
 Stop,stop listening,quit <---- This will results in the Quiting , exiting for the virtual assistant!!
 
+search ________ on Wikipedia : will search on wikipedia based on certain meaningful words(replaces at _____)
+
+what is the ----> Time, Date and others can tell you the the time ,date and others.
+'''
+
+''' Keep in mind to have all the back up things,
+For the personal computer you need to have the computer access,
+And all the other things given to the Assistant so that it can work in there.
+'''
+
+
+# This Joke Class is created By Muhammad Shafay Amjad for the showing of the comic and comic from the internet
+'''
+    The joke class was created by M Shafay Amjad ,for the purpose of building the Joke Regerding to the Specified Things or categories ,
+    Since the Joke class also has the ability to show a comic , while search for a random Joke even , It has also the ability to search for a particular thing.
+'''
+
+
+class Joke(object):
+    def __init__ (self, input_text=""):
+        print("")
+        self.input_text = input_text
+
+    def random_joke (self):
+        joke_number = random.randint(0, 500)
+        joke_web_api_link = "http://api.icndb.com/jokes/" + str(joke_number)
+        print(joke_number)
+
+    '''
+        A Basic module for the scraping for the comic images from the website for the python module.!
+    '''
+
+    def Image_Commic (self):
+        comic_number = random.randint(0, 1000)
+        print(comic_number)
+        scraped_page = urllib.request.urlopen("https://xkcd.com/" + str(
+            comic_number))  # This opens up the link which need to be scrapped according to the number
+        html_data = scraped_page.read()
+        soupified_page = BeautifulSoup(html_data, "html.parser")  # Specifying the way, which to parse the page !
+        # print(soupified_page.prettify()) # This is just for the debugging purposes for the generation of the sopified page
+        comic_image_link = soupified_page.find('div', {
+            'id': 'comic'})  # this search for the div tag wit hteh attribute of the id class and the comic , Named id
+        # print(comic_image_link.img["src"])
+        source = "http://" + comic_image_link.img["src"][
+                             2:]  # getting the source from the image link then passing to the show Image function:
+        picture_file_name = os.getcwd() + '\\C_Images\\' + str(comic_number) + source[-4:]
+        # print(picture_file_name)  just for the debugging purposes
+        downloaded_image = urllib.request.urlretrieve(source, picture_file_name)
+        # print(downloaded_image)
+        self.show_image(picture_file_name)  # Passing the Picture file name to the specified image  to the function
+        # self.show_image(source.strip()[2:])
+
+    def show_image (self, location='', label_text=''):
+        if location == '':
+            root = Tk()  # Creating a root element using the Tkinter module Tk()
+            label1 = Label(root, text=label_text, font='size,20')  # This is the label insertion for the Tkinter module
+            print(label1)  # Showing in the console for the debuggin purposes
+            label1.pack()  # Packing up the label1 module in the GUI
+            root.mainloop()  # Executing the main loop for the Gui Till it gets exited
+            # print("")
+        else:
+            root = Tk()  # Creating a root element for the tkinter
+            photo = PhotoImage(file=location)
+            Label_img = Label(root, image=photo)
+            Label_img.pack()  # This packs this image in the Loop
+            root.mainloop()  # run the loop to show the gui image for the specified !
+
+    # There are some certain sites for the scrapping for the particular page and an api , which is
+    # http://api.icndb.com/jokes/random/
+    def joke_about (self, about=""):
+        print("Under Construction!")
+
+    def joke_category (self, category=["nerdy,explicit"]):
+        # print("this is the Joke Category list which will scrap the site and provide the Joke regerding to the Category")
+        joke_web_api_link = "http://api.icndb.com/jokes/random?limitTo=[" + str(
+            category) + "]"  # Limiting the link with the specification for the particular category !
+        scrapped_page = str(urllib.request.urlopen(
+            joke_web_api_link).read())  # Reading all the requested Scrapped Page from the Api , to see the page .
+        # print(scrapped_page[:])
+        # Its need a fixing script here that would parse the json unformed file .!
+        joke_start = scrapped_page.find('"joke": ') + 9
+        joke_end = scrapped_page[joke_start:].find('"categories"')
+        joke_text = scrapped_page[joke_start:joke_start + joke_end]
+        return joke_text
+        # self.show_image('',joke_text)
+
+
+# This function will tell the current weather for the Specified City , Other wise the default weather for the current city
+# Using the Open weather Map for the getting the temprature for the current weather
+# references are from open weather map , which is doing all the performance stuff.
+def weather_check (text_input=""):
+    print(
+        'This function will be responsible for tellign the current weather for the particular city or Longitude and latitude.')
+
+
+def text_mode ():
+    print("This is the text mode !!")
+    # here you need tohave a user interface , and then provide a chatting history to!
+
+
+# This will be used to show the Frontend for the application.
+
+
+def frontend_HCI (label_text):
+    root = Tk()  # This created the tkinter , face.!
+    root.title("PYSHA 1.0")  # Making the Title for the Py Sha 1.0 ,
+    root.geometry("300x300")  # specifing the x and the y axis in the scenario
+    label1 = Label(root, text=label_text, font='size,25')  # This is the label insertion for the Tkinter module
+    print(label1)  # Showing in the console for the debuggin purposes
+    label1.pack()  # Packing up the label1 module in the GUI
+    root.after(10000, lambda: root.destroy())  # Destroying after 10 seconds
+    root.mainloop()  # Executing the main loop for the Gui Till it gets exited
+
+
+# This will be used to launch the applications
+
+'''
+Comic and Jokes will be dealt with in the below Parts.
 
 '''
 
 
-# The below function will be used regerding to the twitter accessing and stuff
-def twitter_access():
-    print("Granting the twitter Access")
+# Reminders, this function will be used to remind you about things.
 
-
-# The below function will be used for the messaging and getting the messages from the facebook
-
-def messenger_access():
-    print("MESSEBGER ACCESS FOR SENDING AND RECIEVING MESSSAGES")
-
-# The below function will be used to access the facebook and all the stuff.
-def facebook_access():
-    print("FACEBOOK Access for accessing and recieving facebook messages")
-
-
-# This will be used to access the instagram, so that you can access the current features
-def instagram_access():
-    print("Granting the instagram Access and checking")
-
-# This function will be used to access the social medias and choose the correct social media for the particular stuff.
-
-
-def social_media_access():
+def reminders_access ():
     print("")
 
 
+
+# keep in mind that it can also be used for the other queries like loggin into the particular websites.
+
+class SocialMedia:
+    def __int__ (self):
+        print("This is the Constructor of the class Social media")
+
+    def email_access (self):
+        print("")
+
+    # The below function will be used regerding to the twitter accessing and stuff
+    def twitter_access (self):
+        print("Granting the twitter Access")
+
+    # The below function will be used for the messaging and getting the messages from the facebook
+
+    def Messenger_access (self):
+        print("MESSEBGER ACCESS FOR SENDING AND RECIEVING MESSSAGES")
+
+    # The below function will be used to access the facebook and all the stuff.
+
+
+    def facebook_access (self):
+        print("FACEBOOK Access for accessing and recieving facebook messages")
+
+    # This will be used to access the instagram, so that you can access the current features
+
+    def instagram_access (self):
+        print("Granting the instagram Access and checking")
+
+    # This function will be used to access the social medias and choose the correct social media for the particular stuff.
+
+    # keep in mind that it can also be used for the other queries like loggin into the particular websites.
+    def social_media_access (self, browse_key=""):
+        print("SOCIAL MEDIA DETECTED")  # This will be used for the debugging purposes
+        if browse_key != "":
+            if browse_key == 'facebook':
+                print("Browsing Facebook")
+                webbrowser.open("www.facebook.com")
+            elif browse_key == 'twitter':
+                print("Browsing twitter")
+                webbrowser.open("www.twitter.com")
+            elif 'linkedin' == browse_key:
+                print("Browsing linkedin")
+                webbrowser.open("www.linkedin.com")
+            elif browse_key == 'instagram':
+                print("Browsing Instagram")
+                webbrowser.open("www.instagram.com")
+            elif browse_key == 'reddit':
+                print("Browsing Reddit")
+                webbrowser.open("www.reddit.com")
+
+
 # The Below function will be used to search on the browser and then show the desire result
-def search_browser(text_input):
+def search_browser (text_input):
     print('-This is for the searching on browser-')
     try:
         url = 'http://google.com/search?q=' + text_input  # Creating or generating a google link for the particular file
@@ -83,18 +237,18 @@ def search_browser(text_input):
 # searching on the wikipedia and then asking the pysha to speak the respectable result!!
 
 
-def search_wikipedia(text_input):
-    suggested_text = text_input.strip()  # strips the extra white space
-    print(suggested_text)
-    # suggested_string = wikipedia.suggest(suggested_text)  # now going for the suggestion
+def search_wikipedia (text_input):
+    # suggested_string = wikipedia.suggest(text_input)  # now going for the suggestion
     try:
-        wiki_page = wikipedia.page(suggested_text)  # this opens up the wiki page for the particular thing
+        wiki_page = wikipedia.page(text_input)  # this opens up the wiki page for the particular thing
         # text_to_speech(str(wiki_page.title))  # asking the machine to speak this specified word
-        # summary_text = wikipedia.summary(suggested_text, sentences=4)  # search on the wikipedia!
+        # summary_text = wikipedia.summary(text_input, sentences=4)  # search on the wikipedia!
         wiki_link = str(wiki_page.url)  # Converts the url of the wiki links to the url.
         wiki_images = wiki_page.images  # Gets all the images link references. as a list
-        webbrowser.open(wiki_link)  # opens the link on the web browser and then search the specified text link
-        text_to_speech(wikipedia.summary(suggested_text, sentences=3))
+        wiki_sumry = wikipedia.summary(text_input, sentences=3)
+        print(wiki_sumry)
+        # webbrowser.open(wiki_link)  # opens the link on the web browser and then search the specified text link
+        text_to_speech(wiki_sumry)
         return
     except:
         text_to_speech(
@@ -226,8 +380,7 @@ def chat(input):
 # if there is any person question regerding to the Virtual Assistant go for this
 
 
-def Personal_PYSHA(text_input=""):
-    text_input = text_input.strip()  # striping the extra white spaces.
+def Personal_PYSHA (text_input=""):
     if text_input == "name":
         text_to_speech("PYSHA")
         return
@@ -249,7 +402,7 @@ def Personal_PYSHA(text_input=""):
         text_to_speech("Female")
 
 
-def day_check():
+def day_check ():
     current_date = datetime.datetime.now()
     text_to_speech("The current date is " + str(current_date.date()))
     return
@@ -258,7 +411,7 @@ def day_check():
 # Checking the time for the computer while the
 
 
-def time_check():
+def time_check ():
     current_time = time.strftime('%H:%M:%S')
     text_to_speech("The time is " + current_time)
     return
@@ -267,7 +420,7 @@ def time_check():
 # storing the respectable input for the user  while the computer will be able to use the resources and speak
 
 
-def store_userinput(input_check):
+def store_userinput (input_check):
     file_out = open("USERINPUT.txt", "a")
     file_out.writelines("USER SAID: \t" + input_check)
     file_out.write("\n")  # ending the line with the next line
@@ -279,7 +432,7 @@ def store_userinput(input_check):
 # Converting the spoken string to the speech , so that the call is Visible
 
 
-def speech_to_Text():
+def speech_to_Text ():
     client_id = ""  # this is the google api client id
     client_secret = ""  # this is the google api client secret key
     api_key = ""
@@ -316,7 +469,7 @@ def speech_to_Text():
 # if you want to record for the specific interval of time
 
 
-def record_something(duration):
+def record_something (duration):
     # Below the Audio is accessed and then the audio is recorded and then converted in to text
     CHUNK = 1024  # Specifying the chunks for the recording
     FORMAT = pyaudio.paInt16  # the Format is picked up from the pyaudio
@@ -360,7 +513,7 @@ def record_something(duration):
 # Converting the text to speech using the pysha personal assistant and then specifing the input!
 
 
-def text_to_speech(text_input='HI! my name is PYSHA and i am your assistant'):
+def text_to_speech (text_input='HI! my name is PYSHA and i am your assistant'):
     engine = pyttsx.init()
     engine.say(text_input)
     engine.runAndWait()
@@ -370,7 +523,7 @@ def text_to_speech(text_input='HI! my name is PYSHA and i am your assistant'):
 # Checking the input of the speech to text so that the result can cbe picked up and then stored in the displat ..!!!
 
 
-def speech_to_text_wav(file_to_recognize):
+def speech_to_text_wav (file_to_recognize):
     r = sr.Recognizer()
 
     with sr.WavFile(str(file_to_recognize)) as source:  # use "test.wav" as the audio source
@@ -395,11 +548,12 @@ def speech_to_text_wav(file_to_recognize):
 # keep in mind to use the natural language processing ,, www.pythonprogramming.org
 
 
-def process_text_input(total_saying=""):
-    if (total_saying.strip()).lower() == "quit" or (
-            total_saying.strip()).lower() == "stop listening" or total_saying.strip().lower() == 'stop':
+def process_text_input (total_saying=""):
+    total_saying = total_saying.strip()  # Stripping the string for the extra white spaces
+    total_saying = total_saying.lower()  # Converting a string to lower case
+    if total_saying == "quit" or total_saying.lower() == "stop listening" or total_saying.lower() == "stop" or total_saying.lower() == "exit":
         text_to_speech("Bye! my friend")
-        exit()  # exiting the program
+        os._exit(0)  # exiting the program
     else:
         # this stores the Specified Input we said Regerding to something
         # Textual_Analysis(total_saying)
@@ -407,27 +561,38 @@ def process_text_input(total_saying=""):
             Below is the place where are your working on!!!
 
             '''
-        if (total_saying.lower()).startswith('search for'):
+        if total_saying.startswith('search for'):
             text_to_speech("Opening a Browser For you.")
             store_userinput("Searching on Browser :" + total_saying[10:])
             search_browser(
                 text_input=total_saying[10:])  # sending every remanining thing to the Browser to browse for
 
-        elif total_saying.lower().__contains__('on wikipedia') and total_saying.startswith('search'):
-            total_saying = total_saying.lower()  # this converts the string to the lower case
+        elif total_saying.startswith('social media'):
+            store_userinput(total_saying)  # this stores the particular input.
+            browse_key = total_saying.replace('social media',
+                                              '')  # Replacing the total saying variable value'd (social media with empty string)
+            browse_key = browse_key.strip()
+            sma = SocialMedia()  # Creating the social media object
+            sma.social_media_access(
+                browse_key=browse_key)  # Passing the browser key to the social media access function.
+
+        elif total_saying.__contains__('on wikipedia') and total_saying.startswith('search'):
+            total_saying = total_saying  # this converts the string to the lower case
             total_saying = total_saying.replace('search', '')  # replacing the start with the empty string
             total_saying = total_saying.replace('on wikipedia', '')  # replacing the on wikiepdia with empty string
             text_to_speech("Searching on WIkipedia..")
             search_wikipedia(total_saying)  # calling the wikipedia search function , for the results
 
-        elif total_saying.lower().startswith("what is the date") or total_saying.lower() == 'date':
+        elif total_saying.startswith("what is the date") or total_saying == 'date':
             # Here you will be required to input the date
             day_check()  # This calls the day check
-        elif total_saying.lower().startswith("what is the time") or total_saying.lower() == 'time':
+
+        elif total_saying.startswith("what is the time") or total_saying == 'time':
             time_check()  # this checks the current time according to the specified state
 
         # Create a Grammer , that represents the questions regerding to the respectable machine
-        elif total_saying.lower().startswith("what is your"):
+
+        elif total_saying.startswith("what is your"):
             # here you need to create the question saying file so that the file is readable.
             '''
                 Write the Respectable question in this format so that, the Agent learns from the file.
@@ -436,6 +601,23 @@ def process_text_input(total_saying=""):
             total_saying = total_saying.replace("what is your",
                                                 "")  # replacing the words so that it will be easier for the program to Check the last thing
             Personal_PYSHA(total_saying)
+
+        elif total_saying.startswith("text mode"):
+            text_mode()  # this calls the text mode function, and there we can do the processing in the form of the text!
+
+        elif total_saying == "show me a comic":
+            Joke_Object = Joke()
+            Joke_Object.Image_Joke()  # Calls the Joke class Image Joke Object to show a Joke in the form of an image
+
+        elif total_saying == "tell me a joke" or total_saying == "tell me another joke":
+            print("JOKE JOKE JOKE!!!")
+            Joke_Object = Joke()
+            Joke_Text = Joke_Object.joke_category()  # Calls any nerdy or Explicit joke about Chuck Norris.!
+            #frontend_HCI(Joke_Text)  # calling the tkinter library to create the joke for the particular thing ,
+            print(
+                Joke_Text)  # This is the Joke text , which will be printed in the console ,since we don't have much time , working for the Console.!
+            text_to_speech(Joke_Text)  # Speaking up the joke (By machine ) PYSHA <3
+
         else:
             chat(total_saying)
             # .###.....
@@ -450,8 +632,11 @@ def main():
     text_to_speech()  # Calls the virtual assistant to speech
     # speech_to_Text()  # calling the function
     while True:
-        record_something(7)
-        speech_to_text_wav("output.wav")
+        # try:
+        record_something(7)  # providing the Duration in the Record function!
+        speech_to_text_wav("output.wav")  # Converting the recorded format of WAV to speech!
+        # except:
+        #   text_to_speech("There is a problem with the internet connection , kindly try to configure it.!")
 
 
 if __name__ == '__main__':
