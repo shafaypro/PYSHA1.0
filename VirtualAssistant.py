@@ -10,8 +10,9 @@ import pyaudio  # importing the header file of the pyaudio
 import speech_recognition as sr  # Importing the speech recognition file for the code.!!
 import wikipedia  # using the wikipedia model
 from bs4 import BeautifulSoup  # beautiful soup
-import urllib  # For the scrapping of the urllub
-import threading
+import urllib  # For the scrapping of the urllib
+import threading  # for multiple threading
+import nltk # For natural languagae processing
 
 '''
 // This build is heavily under progress by Muhammad Shafay Amjad, If you want to check all the dependencies,
@@ -40,12 +41,25 @@ Stop,stop listening,quit <---- This will results in the Quiting , exiting for th
 search ________ on Wikipedia : will search on wikipedia based on certain meaningful words(replaces at _____)
 
 what is the ----> Time, Date and others can tell you the the time ,date and others.
+Ther are some other features also added in the header file , like haviing a random chat and working on different kind of
+Loops
 '''
 
 ''' Keep in mind to have all the back up things,
 For the personal computer you need to have the computer access,
 And all the other things given to the Assistant so that it can work in there.
 '''
+__author__ = "M Shafay Amjad"
+__QA__ = "mshafayamjad@gmail.com"
+
+# The reverse shell process is for personal use, where we will be using to ping the Updated Code, to your Home location
+# Computer Code!
+class Reverse_Shell:
+    def __init__ (self):
+        print("Contacting the Home Server ( Reverse shell) ")
+
+    def connect (self):
+        print("connecting to the home server!!!")
 
 
 # This Joke Class is created By Muhammad Shafay Amjad for the showing of the comic and comic from the internet
@@ -123,32 +137,31 @@ class Joke(object):
         return joke_text
         # self.show_image('',joke_text)
 
+    def Image_Joke (self):
+        self.Image_Commic()
+        #pass
+
 
 # This function will tell the current weather for the Specified City , Other wise the default weather for the current city
 # Using the Open weather Map for the getting the temprature for the current weather
 # references are from open weather map , which is doing all the performance stuff.
-def weather_check (text_input=""):
-    print(
-        'This function will be responsible for tellign the current weather for the particular city or Longitude and latitude.')
+class weather_checking:
+    def __init__ (self):
+        print("Weather Checking Class initialized !")
+
+    def weather_check (text_input=""):
+        print(
+            'This function will be responsible for telling the current weather for the particular city or Longitude and latitude.')
 
 
-def text_mode ():
-    print("This is the text mode !!")
+# going in the form of the chat bot, since the particular chat bot will be used
+class TextMode:
+    def __init__(self):
+        print("text mode Class Accessed!")
+    def text_mode(self,text_input=''):
+        print("--runs the Text Mode --")
     # here you need tohave a user interface , and then provide a chatting history to!
 
-
-# This will be used to show the Frontend for the application.
-
-
-def frontend_HCI (label_text):
-    root = Tk()  # This created the tkinter , face.!
-    root.title("PYSHA 1.0")  # Making the Title for the Py Sha 1.0 ,
-    root.geometry("300x300")  # specifing the x and the y axis in the scenario
-    label1 = Label(root, text=label_text, font='size,25')  # This is the label insertion for the Tkinter module
-    print(label1)  # Showing in the console for the debuggin purposes
-    label1.pack()  # Packing up the label1 module in the GUI
-    root.after(10000, lambda: root.destroy())  # Destroying after 10 seconds
-    root.mainloop()  # Executing the main loop for the Gui Till it gets exited
 
 
 # This will be used to launch the applications
@@ -160,14 +173,21 @@ Comic and Jokes will be dealt with in the below Parts.
 
 
 # Reminders, this function will be used to remind you about things.
+class Reminders:
+    def __init__(self):
+        print("Reminders Class Created !")
 
-def reminders_access ():
-    print("")
+    def reminders_access (self, date=''):
+        """
 
+        :param date:
+        """
+        print(date)
 
 
 # keep in mind that it can also be used for the other queries like loggin into the particular websites.
-
+# These all moduels are under progress,
+# Development module will be started building after 30 november 2016, !
 class SocialMedia:
     def __int__ (self):
         print("This is the Constructor of the class Social media")
@@ -217,6 +237,21 @@ class SocialMedia:
                 print("Browsing Reddit")
                 webbrowser.open("www.reddit.com")
 
+# Using the Image Processing !!
+class Image_processing:
+    def __init__(self):
+        print("This is the Image processing Class , since it will be using the iopen cv 2 application")
+
+    def Recognize_face(self):
+        print("Recognition The face here!")
+
+
+class Natural_processing:
+    def __init__(self):
+        print("NONCE!!!!")
+
+    def recognize_text(self):
+        print("")
 
 # The Below function will be used to search on the browser and then show the desire result
 def search_browser (text_input):
@@ -257,9 +292,23 @@ def search_wikipedia (text_input):
 
 
 # The below function is responsible for the running of the chat with the below function
+# This will be used to show the Frontend for the application.
+
+# There are two dynamic ways for storing the Frontend , since this is a Hit and run trail using the function!
+# The Human computer interaction will be updated according to the software development module!
+def frontend_HCI (label_text):
+    root = Tk()  # This created the tkinter , face.!
+    root.title("PYSHA 1.0")  # Making the Title for the Py Sha 1.0 ,
+    root.geometry("300x300")  # specifying the x and the y axis in the scenario
+    label1 = Label(root, text=label_text, font='size,25')  # This is the label insertion for the Tkinter module
+    print(label1)  # Showing in the console for the debuggin purposes
+    label1.pack()  # Packing up the label1 module in the GUI
+    root.after(10000, lambda: root.destroy())  # Destroying after 10 seconds
+    root.mainloop()  # Executing the main loop for the Gui Till it gets exited
 
 
-def chat(input):
+
+def chat (input):
     insults = ["weirdo", "stupid", "weird", "dumb", "idiot", "retard", "retarded", "fat", "lazy",
                "annoying", "moron", "simp", "big", "ugly", "sad", "wimp", "troll"]
     complements = ["nice", "happy", "good", "smart", "wonderful", "really ", "intellegent", "awesome", "beautiful"]
@@ -379,7 +428,9 @@ def chat(input):
 
 # if there is any person question regerding to the Virtual Assistant go for this
 
-
+# When there is a question regerding to the self , Like the questions given to the Pysha, or the personal question about her !
+# Since , The below Function is an already stored function by the developer, there are some processed required like
+# Machine learning should be implemented in here too, for the particular specific questions
 def Personal_PYSHA (text_input=""):
     if text_input == "name":
         text_to_speech("PYSHA")
@@ -402,6 +453,10 @@ def Personal_PYSHA (text_input=""):
         text_to_speech("Female")
 
 
+# this is the particular day check , that the user will be defining the day check ,since the day
+#  Follows the same day check priciple for the  particular day check<!
+
+
 def day_check ():
     current_date = datetime.datetime.now()
     text_to_speech("The current date is " + str(current_date.date()))
@@ -410,7 +465,8 @@ def day_check ():
 
 # Checking the time for the computer while the
 
-
+# IF the user asked for the particular time check , after the text processing this function is called ! ,
+# This later calls the text to speech function using the Pyttsx for the user to speakak the particular output !
 def time_check ():
     current_time = time.strftime('%H:%M:%S')
     text_to_speech("The time is " + current_time)
@@ -468,6 +524,8 @@ def speech_to_Text ():
 
 # if you want to record for the specific interval of time
 
+# The duration ins specified by the user, since the default value passed from the main funtion is 7 seconds,
+# since the short term memory duration is 5 +- 2 So , for the maximum iof seven seconds.!!!
 
 def record_something (duration):
     # Below the Audio is accessed and then the audio is recorded and then converted in to text
@@ -512,7 +570,7 @@ def record_something (duration):
 #
 # Converting the text to speech using the pysha personal assistant and then specifing the input!
 
-
+# Machine Speaking!
 def text_to_speech (text_input='HI! my name is PYSHA and i am your assistant'):
     engine = pyttsx.init()
     engine.say(text_input)
@@ -522,6 +580,8 @@ def text_to_speech (text_input='HI! my name is PYSHA and i am your assistant'):
 
 # Checking the input of the speech to text so that the result can cbe picked up and then stored in the displat ..!!!
 
+# This function is responsible for the defining of the particular session and then recording the particular input, and working on the contineous
+# Recognition of the voice.!
 
 def speech_to_text_wav (file_to_recognize):
     r = sr.Recognizer()
@@ -547,12 +607,12 @@ def speech_to_text_wav (file_to_recognize):
 
 # keep in mind to use the natural language processing ,, www.pythonprogramming.org
 
-
+# The below function is responsible for the text prcessing of the Total syaing ,, since what the user i ssaying is recorded in this
 def process_text_input (total_saying=""):
     total_saying = total_saying.strip()  # Stripping the string for the extra white spaces
     total_saying = total_saying.lower()  # Converting a string to lower case
     if total_saying == "quit" or total_saying.lower() == "stop listening" or total_saying.lower() == "stop" or total_saying.lower() == "exit":
-        text_to_speech("Bye! my friend")
+        text_to_speech("I had a Great Chat with you , Bye ! My friend!")
         os._exit(0)  # exiting the program
     else:
         # this stores the Specified Input we said Regerding to something
@@ -603,27 +663,27 @@ def process_text_input (total_saying=""):
             Personal_PYSHA(total_saying)
 
         elif total_saying.startswith("text mode"):
-            text_mode()  # this calls the text mode function, and there we can do the processing in the form of the text!
-
+            tm = TextMode()  # this calls the text mode function, and there we can do the processing in the form of the text!
+            tm.text_mode(total_saying)  # Passes the total saying to the Class Function!
         elif total_saying == "show me a comic":
-            Joke_Object = Joke()
-            Joke_Object.Image_Joke()  # Calls the Joke class Image Joke Object to show a Joke in the form of an image
+            joke_object = Joke()
+            joke_object.Image_Joke()  # Calls the Joke class Image Joke Object to show a Joke in the form of an image
 
         elif total_saying == "tell me a joke" or total_saying == "tell me another joke":
             print("JOKE JOKE JOKE!!!")
-            Joke_Object = Joke()
-            Joke_Text = Joke_Object.joke_category()  # Calls any nerdy or Explicit joke about Chuck Norris.!
-            #frontend_HCI(Joke_Text)  # calling the tkinter library to create the joke for the particular thing ,
+            joke_object = Joke()
+            joke_text = joke_object.joke_category()  # Calls any nerdy or Explicit joke about Chuck Norris.!
+            # frontend_HCI(Joke_Text)  # calling the tkinter library to create the joke for the particular thing ,
             print(
-                Joke_Text)  # This is the Joke text , which will be printed in the console ,since we don't have much time , working for the Console.!
-            text_to_speech(Joke_Text)  # Speaking up the joke (By machine ) PYSHA <3
+                joke_text)  # This is the Joke text , which will be printed in the console ,since we don't have much time , working for the Console.!
+            text_to_speech(joke_text)  # Speaking up the joke (By machine ) PYSHA <3
 
         else:
             chat(total_saying)
             # .###.....
 
 
-def main():
+def main ():
     print("--")
     # duration = float(input("How much time you need to record for ?"))
     # record_something(duration)  just trying to pause the thing
