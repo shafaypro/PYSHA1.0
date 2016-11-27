@@ -49,12 +49,13 @@ from nltk.tokenize import PunktSentenceTokenizer  # The Tokenizer which will be 
 def process_content():
     try:
         for i in tokenized[:5]:  # here we are applying sentence limit so we can use this one for the processing the sentences.
-            words = nltk.word_tokenize(i)
+            words = nltk.word_tokenize(i) # Tokenizes all the word , using the word tokenize!
             tagged = nltk.pos_tag(words)  # Tags the specific words with the Natural language .
-            print(tagged)
+            print(tagged)  # Prints the words with the Tags in the form of the tupple .!
+
 
     except Exception as e:
-        print(str(e))
+        print(str(e))  # if there is an exception then this prints out the exception
 
 
 
@@ -64,4 +65,5 @@ if __name__ == '__main__':
     custom_sent_tokenizer = PunktSentenceTokenizer(
         train_text)  # This is the Train Text in the form of sentence being tokenized using the unsupervised learning.!
     tokenized  = custom_sent_tokenizer.tokenize(sample_text) # Tokenizing he Custom sentence tokenize
-    process_content()
+    #print(tokenized) # this is just for the Debugging purposes!
+    process_content()  # Calling the process content function!
