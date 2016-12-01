@@ -12,7 +12,16 @@ import wikipedia  # using the wikipedia model
 from bs4 import BeautifulSoup  # beautiful soup
 import urllib  # For the scrapping of the urllib
 import threading  # for multiple threading
-import nltk # For natural languagae processing
+import nltk  # For natural languagae processing
+import os  # this is for the Operating system modules
+import stat  # index constants for os.stat()
+import time
+import random
+from PIL import Image, ImageTk
+from nltk.tokenize import word_tokenize, sent_tokenize  # importing both of the tokenization packages form the modules
+from nltk.tokenize import PunktSentenceTokenizer  # This is an intelligent Tokenizer
+from nltk.stem import \
+    PorterStemmer  # this is  the steamer which will be used for the Steaming of the Tokenized Words (Drop down the words )
 
 '''
 // This build is heavily under progress by Muhammad Shafay Amjad, If you want to check all the dependencies,
@@ -52,6 +61,48 @@ And all the other things given to the Assistant so that it can work in there.
 __author__ = "M Shafay Amjad"
 __QA__ = "mshafayamjad@gmail.com"
 
+
+class FileCheck:
+    def __init__ (self):
+        print("")
+
+    def file_info (self, file_name=""):
+        if file_name != "":
+            file_stats = os.stat(file_name)
+            # create a dictionary to hold file info
+            file_info = {
+                'fname': file_name,
+                'fsize': file_stats[stat.ST_SIZE],
+                'f_lm': time.strftime("%d/%m/%Y %I:%M:%S %p", time.localtime(file_stats[stat.ST_MTIME])),
+                'f_la': time.strftime("%d/%m/%Y %I:%M:%S %p", time.localtime(file_stats[stat.ST_ATIME])),
+                'f_ct': time.strftime("%d/%m/%Y %I:%M:%S %p", time.localtime(file_stats[stat.ST_CTIME]))
+            }
+            print
+            print("file name = %(fname)s" % file_info)
+            print("file size = %(fsize)s bytes" % file_info)
+            print("last modified = %(f_lm)s" % file_info)
+            print("last accessed = %(f_la)s" % file_info)
+            print("creation time = %(f_ct)s" % file_info)
+            print
+            if stat.S_ISDIR(file_stats[stat.ST_MODE]):
+                print("This a directory")
+            else:
+                print("This is not a directory")
+                print
+                print("A closer look at the os.stat(%s) tuple:" % file_name)
+                print(file_stats)
+                print
+                print("The above tuple has the following sequence:")
+                print("""st_mode (protection bits), st_ino (inode number),
+              st_dev (device), st_nlink (number of hard links),
+              st_uid (user ID of owner), st_gid (group ID of owner),
+              st_size (file size, bytes), st_atime (last access time, seconds since epoch),
+              st_mtime (last modification time), st_ctime (time of creation, Windows)""")
+        else:
+            print("No File Detected , hence Exiting !")
+            text_to_speech("No File Detected!")
+
+
 # The reverse shell process is for personal use, where we will be using to ping the Updated Code, to your Home location
 # Computer Code!
 class Reverse_Shell:
@@ -84,7 +135,7 @@ class Joke(object):
     '''
 
     def Image_Commic (self):
-        comic_number = random.randint(0, 1000)
+        comic_number = random.randint(1, 100)
         print(comic_number)
         scraped_page = urllib.request.urlopen("https://xkcd.com/" + str(
             comic_number))  # This opens up the link which need to be scrapped according to the number
@@ -97,6 +148,7 @@ class Joke(object):
         source = "http://" + comic_image_link.img["src"][
                              2:]  # getting the source from the image link then passing to the show Image function:
         picture_file_name = os.getcwd() + '\\C_Images\\' + str(comic_number) + source[-4:]
+        print(picture_file_name)
         # print(picture_file_name)  just for the debugging purposes
         downloaded_image = urllib.request.urlretrieve(source, picture_file_name)
         # print(downloaded_image)
@@ -112,11 +164,23 @@ class Joke(object):
             root.mainloop()  # Executing the main loop for the Gui Till it gets exited
             # print("")
         else:
-            root = Tk()  # Creating a root element for the tkinter
-            photo = PhotoImage(file=location)
-            Label_img = Label(root, image=photo)
-            Label_img.pack()  # This packs this image in the Loop
-            root.mainloop()  # run the loop to show the gui image for the specified !
+            try:
+                print(location)  # this is just for the debugging purposes
+                root = Tk()  # Creating a root element for the tkinter
+                photo = PhotoImage(file=location)
+                Label_img = Label(root, image=photo)
+                Label_img.pack()  # This packs this image in the Loop
+                root.mainloop()  # run the loop to show the gui image for the specified !
+            except:
+                print(location)  # this is just for the debugging purposes!
+                root = Tk()  # this is the tkinter module!
+                root.geometry('1000x1000')
+                canvas = Canvas(root, width=999, height=999)
+                canvas.pack()
+                photo = Image.open(location)
+                label_image = ImageTk.PhotoImage(photo)  # this adds up the photo image to the Label image
+                imagesprite = canvas.create_image(400, 400, image=label_image)
+                root.mainloop()
 
     # There are some certain sites for the scrapping for the particular page and an api , which is
     # http://api.icndb.com/jokes/random/
@@ -139,13 +203,13 @@ class Joke(object):
 
     def Image_Joke (self):
         self.Image_Commic()
-        #pass
+        # pass
 
 
 # This function will tell the current weather for the Specified City , Other wise the default weather for the current city
 # Using the Open weather Map for the getting the temprature for the current weather
 # references are from open weather map , which is doing all the performance stuff.
-class weather_checking:
+class WeatherChecking:
     def __init__ (self):
         print("Weather Checking Class initialized !")
 
@@ -156,12 +220,12 @@ class weather_checking:
 
 # going in the form of the chat bot, since the particular chat bot will be used
 class TextMode:
-    def __init__(self):
+    def __init__ (self):
         print("text mode Class Accessed!")
-    def text_mode(self,text_input=''):
-        print("--runs the Text Mode --")
-    # here you need tohave a user interface , and then provide a chatting history to!
 
+    def text_mode (self, text_input=''):
+        print("--runs the Text Mode --")
+        # here you need tohave a user interface , and then provide a chatting history to!
 
 
 # This will be used to launch the applications
@@ -174,7 +238,7 @@ Comic and Jokes will be dealt with in the below Parts.
 
 # Reminders, this function will be used to remind you about things.
 class Reminders:
-    def __init__(self):
+    def __init__ (self):
         print("Reminders Class Created !")
 
     def reminders_access (self, date=''):
@@ -237,21 +301,52 @@ class SocialMedia:
                 print("Browsing Reddit")
                 webbrowser.open("www.reddit.com")
 
+
 # Using the Image Processing !!
-class Image_processing:
-    def __init__(self):
+class ImageProcessing:
+    def __init__ (self):
         print("This is the Image processing Class , since it will be using the iopen cv 2 application")
 
-    def Recognize_face(self):
+    def Recognize_face (self):
         print("Recognition The face here!")
 
 
-class Natural_processing:
-    def __init__(self):
+class NaturalProcessing:
+    def __init__ (self):
         print("NONCE!!!!")
 
-    def recognize_text(self):
+    def recognize_text (self):
         print("")
+
+    @staticmethod
+    def steam_word_port (self, text=""):
+        if text != "":
+            tokenized_word = word_tokenize(text)  # this is the word tokenized !
+            ps = PorterStemmer()
+            tokenized_stem_words = []  # representing a list !
+            for word in tokenized_word:
+                tokenized_stem_words.append(ps.stem(word))
+            return
+
+    def word_tokeniztion (self, text="", sent_tokenized=TRUE):
+        if text != "":
+            if sent_tokenized == True:
+                Tokenized_sentence = sent_tokenize(text)
+                return Tokenized_sentence
+            else:
+                Tokenized_words = word_tokenize(
+                    text)  # this converts te passed stirng to the word tokenized for the scanning of the probability
+                return Tokenized_words  # This returns the tokenized words !
+
+
+# This runs the Applications in the Program!
+
+
+def run_apps (text_input=""):
+    if text_input != "":
+        if text_input == "calculator":
+            os.system('calc.exe')
+
 
 # The Below function will be used to search on the browser and then show the desire result
 def search_browser (text_input):
@@ -272,7 +367,7 @@ def search_browser (text_input):
 # searching on the wikipedia and then asking the pysha to speak the respectable result!!
 
 
-def search_wikipedia (text_input):
+def search_wiki (text_input):
     # suggested_string = wikipedia.suggest(text_input)  # now going for the suggestion
     try:
         wiki_page = wikipedia.page(text_input)  # this opens up the wiki page for the particular thing
@@ -296,7 +391,7 @@ def search_wikipedia (text_input):
 
 # There are two dynamic ways for storing the Frontend , since this is a Hit and run trail using the function!
 # The Human computer interaction will be updated according to the software development module!
-def frontend_HCI (label_text):
+def frontend_hci (label_text):
     root = Tk()  # This created the tkinter , face.!
     root.title("PYSHA 1.0")  # Making the Title for the Py Sha 1.0 ,
     root.geometry("300x300")  # specifying the x and the y axis in the scenario
@@ -305,7 +400,6 @@ def frontend_HCI (label_text):
     label1.pack()  # Packing up the label1 module in the GUI
     root.after(10000, lambda: root.destroy())  # Destroying after 10 seconds
     root.mainloop()  # Executing the main loop for the Gui Till it gets exited
-
 
 
 def chat (input):
@@ -426,9 +520,9 @@ def chat (input):
                 text_to_speech("No comment")
 
 
-# if there is any person question regerding to the Virtual Assistant go for this
+# if there is any person question regarding to the Virtual Assistant go for this
 
-# When there is a question regerding to the self , Like the questions given to the Pysha, or the personal question about her !
+# When there is a question regarding to the self , Like the questions given to the Pysha, or the personal question about her !
 # Since , The below Function is an already stored function by the developer, there are some processed required like
 # Machine learning should be implemented in here too, for the particular specific questions
 def Personal_PYSHA (text_input=""):
@@ -466,7 +560,7 @@ def day_check ():
 # Checking the time for the computer while the
 
 # IF the user asked for the particular time check , after the text processing this function is called ! ,
-# This later calls the text to speech function using the Pyttsx for the user to speakak the particular output !
+# This later calls the text to speech function using the P.y.t.t.s.x. for the user to speak the particular output !
 def time_check ():
     current_time = time.strftime('%H:%M:%S')
     text_to_speech("The time is " + current_time)
@@ -488,7 +582,7 @@ def store_userinput (input_check):
 # Converting the spoken string to the speech , so that the call is Visible
 
 
-def speech_to_Text ():
+def speech_to_text ():
     client_id = ""  # this is the google api client id
     client_secret = ""  # this is the google api client secret key
     api_key = ""
@@ -580,7 +674,7 @@ def text_to_speech (text_input='HI! my name is PYSHA and i am your assistant'):
 
 # Checking the input of the speech to text so that the result can cbe picked up and then stored in the displat ..!!!
 
-# This function is responsible for the defining of the particular session and then recording the particular input, and working on the contineous
+# This function is responsible for the defining of the particular session and then recording the particular input, and working on the continuous
 # Recognition of the voice.!
 
 def speech_to_text_wav (file_to_recognize):
@@ -612,7 +706,7 @@ def process_text_input (total_saying=""):
     total_saying = total_saying.strip()  # Stripping the string for the extra white spaces
     total_saying = total_saying.lower()  # Converting a string to lower case
     if total_saying == "quit" or total_saying.lower() == "stop listening" or total_saying.lower() == "stop" or total_saying.lower() == "exit":
-        text_to_speech("I had a Great Chat with you , Bye ! My friend!")
+        text_to_speech("BYE")
         os._exit(0)  # exiting the program
     else:
         # this stores the Specified Input we said Regerding to something
@@ -641,7 +735,7 @@ def process_text_input (total_saying=""):
             total_saying = total_saying.replace('search', '')  # replacing the start with the empty string
             total_saying = total_saying.replace('on wikipedia', '')  # replacing the on wikiepdia with empty string
             text_to_speech("Searching on WIkipedia..")
-            search_wikipedia(total_saying)  # calling the wikipedia search function , for the results
+            search_wiki(total_saying)  # calling the wikipedia search function , for the results
 
         elif total_saying.startswith("what is the date") or total_saying == 'date':
             # Here you will be required to input the date
@@ -666,18 +760,25 @@ def process_text_input (total_saying=""):
             tm = TextMode()  # this calls the text mode function, and there we can do the processing in the form of the text!
             tm.text_mode(total_saying)  # Passes the total saying to the Class Function!
         elif total_saying == "show me a comic":
-            joke_object = Joke()
+            store_userinput("show me a comic")
+            joke_object = Joke()  # creating an object of ht Joke class !
             joke_object.Image_Joke()  # Calls the Joke class Image Joke Object to show a Joke in the form of an image
 
         elif total_saying == "tell me a joke" or total_saying == "tell me another joke":
             print("JOKE JOKE JOKE!!!")
+            store_userinput("tell me a joke")
             joke_object = Joke()
             joke_text = joke_object.joke_category()  # Calls any nerdy or Explicit joke about Chuck Norris.!
             # frontend_HCI(Joke_Text)  # calling the tkinter library to create the joke for the particular thing ,
             print(
                 joke_text)  # This is the Joke text , which will be printed in the console ,since we don't have much time , working for the Console.!
             text_to_speech(joke_text)  # Speaking up the joke (By machine ) PYSHA <3
-
+        elif total_saying.startswith("open") or total_saying.startswith("run"):
+            store_userinput(total_saying)  # This stores the Data in the Us
+            # er input file so that the history is kept
+            total_saying = total_saying.replace('open ', '')  # replacing the word open with the Total_saying!
+            total_saying = total_saying.replace('run ', '')  # This is the replacement of the run with the
+            run_apps(total_saying)  # This is the total saying being passed to the Running apps. !
         else:
             chat(total_saying)
             # .###.....
@@ -690,7 +791,7 @@ def main ():
     client_id = ""  # this is the google api client id
     client_secret = ""  # this is the google api client secret key
     text_to_speech()  # Calls the virtual assistant to speech
-    # speech_to_Text()  # calling the function
+    # speech_to_text()  # calling the function
     while True:
         # try:
         record_something(7)  # providing the Duration in the Record function!

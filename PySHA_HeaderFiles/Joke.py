@@ -7,6 +7,7 @@ import urllib.request  # urllib requirests for the scrapping of the website.
 from tkinter import *
 import json
 import requests
+from PIL import Image, ImageTk
 
 
 class Joke(object):
@@ -52,11 +53,21 @@ class Joke(object):
             root.mainloop()  # Executing the main loop for the Gui Till it gets exited
             # print("")
         else:
-            root = Tk()  # Creating a root element for the tkinter
-            photo = PhotoImage(file=location)
-            Label_img = Label(root, image=photo)
-            Label_img.pack()  # This packs this image in the Loop
-            root.mainloop()  # run the loop to show the gui image for the specified !
+            try:
+                root = Tk()  # Creating a root element for the tkinter
+                photo = PhotoImage(file=location)
+                Label_img = Label(root, image=photo)
+                Label_img.pack()  # This packs this image in the Loop
+                root.mainloop()  # run the loop to show the gui image for the specified !
+            except:
+                root = Tk()  # this is the tkinter module!
+                root.geometry('1000x1000')
+                canvas = Canvas(root, width=999, height=999)
+                canvas.pack()
+                photo = Image.open(location)
+                label_image = ImageTk.PhotoImage(photo)  # this adds up the photo image to the Label image
+                imagesprite = canvas.create_image(400, 400, image=label_image)
+                root.mainloop()
 
     # There are some certain sites for the scrapping for the particular page and an api , which is
     # http://api.icndb.com/jokes/random/
@@ -76,11 +87,11 @@ class Joke(object):
         joke_start = scrapped_page.find('"joke": ') + 9
         joke_end = scrapped_page[joke_start:].find('"categories"')
         joke_text = scrapped_page[joke_start:joke_start + joke_end]
-        self.show_image('',joke_text)
+        self.show_image('', joke_text)
 
 
 if __name__ == '__main__':
     J = Joke()
     # J.random_joke()
-    # J.Image_Commic()  # this calls the Comic function .!
-    J.joke_category()
+    J.Image_Commic()  # this calls the Comic function .!
+    # J.joke_category()
