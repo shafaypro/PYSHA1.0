@@ -1,33 +1,32 @@
 import datetime
 import os
 import pyttsx  # Python text to speech and speech to text
-import time  # the time module for the specified intervals
+import stat  # index constants for os.stat()
+import time
+import urllib  # For the scrapping of the urllib
+import urllib.request  # urllib requirests for the scrapping of the website.
 import wave  # Importing the wave of for the recording(This is the format for the recording which is used .wav
 import webbrowser  # Using the web browser , For the browsing purposes
 from random import *  # Using the random  function for the creation
-from tkinter import *  # For the GUI Tkinter package
+from tkinter import *  # tkinter module will be used for the creation of the Gui of the python module!
+import nltk  # natural language processing tool kt !
 import pyaudio  # importing the header file of the pyaudio
 import speech_recognition as sr  # Importing the speech recognition file for the code.!!
 import wikipedia  # using the wikipedia model
-from bs4 import BeautifulSoup  # beautiful soup
-import urllib  # For the scrapping of the urllib
-import threading  # for multiple threading
-import nltk  # For natural languagae processing
-import os  # this is for the Operating system modules
-import stat  # index constants for os.stat()
-import time
-import random
-from PIL import Image, ImageTk
-from nltk.tokenize import word_tokenize, sent_tokenize  # importing both of the tokenization packages form the modules
-from nltk.tokenize import PunktSentenceTokenizer  # This is an intelligent Tokenizer
+from PIL import Image, ImageTk  # this is the PIL Package for the Picture Image Learning
+from bs4 import BeautifulSoup  # importing the beautiful soup for the web scraping !!!!!!
 from nltk.stem import \
     PorterStemmer  # this is  the steamer which will be used for the Steaming of the Tokenized Words (Drop down the words )
+from nltk.tokenize import word_tokenize, sent_tokenize,PunktSentenceTokenizer  # importing both of the tokenization packages form the modules
+from nltk.corpus import state_union # this imports the state union function which need to be taken in the corpus as the state union of the words.
+# this si the importing of the header files !
+# --
 
 '''
 // This build is heavily under progress by Muhammad Shafay Amjad, If you want to check all the dependencies,
 and want to contribute to improve the particular algorithm, check Repository.
 https://github.com/shafaypro/VirtualAssistant
-Info Dated: 24/10/2016
+Info Dated: 24/10/2016  , WaterFall method is being Followed
 
 User Guideline:
 
@@ -43,7 +42,7 @@ since the api is then accessed and the chunks of the audio is converted into the
 
 There are some already stored procedures for the particular messages , like if a message starts from the :::
 
-Search for <--- This opens up the browser for the result so that the Virtual assitant is able to read from the data!!!
+Search for <--- This opens up the browser for the result so that the Virtual assistant is able to read from the data!!!
 
 Stop,stop listening,quit <---- This will results in the Quiting , exiting for the virtual assistant!!
 
@@ -52,6 +51,17 @@ search ________ on Wikipedia : will search on wikipedia based on certain meaning
 what is the ----> Time, Date and others can tell you the the time ,date and others.
 Ther are some other features also added in the header file , like haviing a random chat and working on different kind of
 Loops
+
+you can ask for the questions and the Answers regarding to the Natural language processing module .
+
+If you want to ask for the Application running modules then
+for that :
+RUN or OPEN _________ the Underscore should be replaced by the application name
+--> This script will also be monitroing the computer (Here it contains the data analysis and the data visualization part
+This will be including the statistical analysis and well as the sentimental analysis . ! so that this may be used in the later
+sequences of the version
+-->
+
 '''
 
 ''' Keep in mind to have all the back up things,
@@ -60,6 +70,12 @@ And all the other things given to the Assistant so that it can work in there.
 '''
 __author__ = "M Shafay Amjad"
 __QA__ = "mshafayamjad@gmail.com"
+
+
+class MusicPlayer:
+    def __init__ (self):
+        pass
+        # this class will be responsible for the playing of the music and the specific things
 
 
 class FileCheck:
@@ -105,6 +121,11 @@ class FileCheck:
 
 # The reverse shell process is for personal use, where we will be using to ping the Updated Code, to your Home location
 # Computer Code!
+'''
+This is the personal Computer Reverse shell!
+'''
+
+
 class Reverse_Shell:
     def __init__ (self):
         print("Contacting the Home Server ( Reverse shell) ")
@@ -117,6 +138,7 @@ class Reverse_Shell:
 '''
     The joke class was created by M Shafay Amjad ,for the purpose of building the Joke Regerding to the Specified Things or categories ,
     Since the Joke class also has the ability to show a comic , while search for a random Joke even , It has also the ability to search for a particular thing.
+
 '''
 
 
@@ -135,7 +157,7 @@ class Joke(object):
     '''
 
     def Image_Commic (self):
-        comic_number = random.randint(1, 100)
+        comic_number = random.randint(1, 1000)  # getting the commic number ranomly from the Random.rantint
         print(comic_number)
         scraped_page = urllib.request.urlopen("https://xkcd.com/" + str(
             comic_number))  # This opens up the link which need to be scrapped according to the number
@@ -231,9 +253,17 @@ class TextMode:
 # This will be used to launch the applications
 
 '''
-Comic and Jokes will be dealt with in the below Parts.
-
+Monitor class will be responsible for the Monitoring for the cerrain syustem commands which will be kept updated again and again
 '''
+
+
+class Monitor:
+    def __init__ (self):
+        print("Monitoring class instance has been created ")
+
+    def monitorpersonal (self):
+        pass
+        print("This will be the responsible for the monitoring of the certain things happening in thecomputers")
 
 
 # Reminders, this function will be used to remind you about things.
@@ -247,6 +277,21 @@ class Reminders:
         :param date:
         """
         print(date)
+
+    def reminder_write (self, data):
+        data = str(data)  # converting the data into the string form.
+        write_file = open("Reminder_way/reminder_store.txt", "w")  # this is the writing to the file specified !@
+        write_file.write(data)  # this writes the data to the specified file
+        write_file.close()  # closing the self file so there is no need for the writing of the File in th
+
+    def check_reminder (self, check):
+        data_read = open("Reminder_way/reminder_store.txt").readlines()
+        for line in data_read:  # looping through each line of the File 1
+            if line.contains(
+                    check):  # if the file containes the check (means the Date which need to be checked then the reminder is called
+                return check
+            else:
+                continue
 
 
 # keep in mind that it can also be used for the other queries like loggin into the particular websites.
@@ -322,7 +367,7 @@ class NaturalProcessing:
     def steam_word_port (self, text=""):
         if text != "":
             tokenized_word = word_tokenize(text)  # this is the word tokenized !
-            ps = PorterStemmer()
+            ps = PorterStemmer()  # Creating a port stemmer , its basically a stemmer technique , which Gives you the stem representation of the specified Words !
             tokenized_stem_words = []  # representing a list !
             for word in tokenized_word:
                 tokenized_stem_words.append(ps.stem(word))
@@ -338,6 +383,68 @@ class NaturalProcessing:
                     text)  # this converts te passed stirng to the word tokenized for the scanning of the probability
                 return Tokenized_words  # This returns the tokenized words !
 
+    """
+    One of the most powerful aspects of NLTK module is the parts of speech ,
+    It CAN DO PARTS OF SPEECH TAGGING FOR YOU. This means labelling the words on the basis of NOUN, Adjectives, verbs etc.
+    POS tag list:
+
+    CC	coordinating conjunction
+    CD	cardinal digit
+    DT	determiner
+    EX	existential there (like: "there is" ... think of it like "there exists")
+    FW	foreign word
+    IN	preposition/subordinating conjunction
+    JJ	adjective	'big'
+    JJR	adjective, comparative	'bigger'
+    JJS	adjective, superlative	'biggest'
+    LS	list marker	1)
+    MD	modal	could, will
+    NN	noun, singular 'desk'
+    NNS	noun plural	'desks'
+    NNP	proper noun, singular	'Harrison'
+    NNPS	proper noun, plural	'Americans'
+    PDT	predeterminer	'all the kids'
+    POS	possessive ending	parent's
+    PRP	personal pronoun	I, he, she
+    PRP$	possessive pronoun	my, his, hers
+    RB	adverb	very, silently,
+    RBR	adverb, comparative	better
+    RBS	adverb, superlative	best
+    RP	particle	give up
+    TO	to	go 'to' the store.
+    UH	interjection	errrrrrrrm
+    VB	verb, base form	take
+    VBD	verb, past tense	took
+    VBG	verb, gerund/present participle	taking
+    VBN	verb, past participle	taken
+    VBP	verb, sing. present, non-3d	take
+    VBZ	verb, 3rd person sing. present	takes
+    WDT	wh-determiner	which
+    WP	wh-pronoun	who, what
+    WP$	possessive wh-pronoun	whose
+    WRB	wh-abverb	where, when
+    """
+    def process_content(tokenized=''):
+        try:
+            for i in tokenized[:5]:  # here we are applying sentence limit so we can use this one for the processing the sentences.
+                words = nltk.word_tokenize(i) # Tokenizes all the word , using the word tokenize!
+                tagged = nltk.pos_tag(words)  # Tags the specific words with the Natural language .
+                print(tagged)  # Prints the words with the Tags in the form of the tupple .!
+
+
+        except Exception as e:
+            print(str(e))  # if there is an exception then this prints out the exception
+    def partofspeechtag (self, sentences=''):  # th
+        train_text = state_union.raw(
+            "2005-GWBUSH.txt")  # This is the train text which will be used to tokenize the sample Test(unsupervised learning)
+        sample_text = state_union.raw("2006-GWBUSH.txt")  # This is the sample text which will be tokenized later onward
+        # print(type(sample_text))
+        custom_sent_tokenizer = PunktSentenceTokenizer(
+            train_text)  # This is the Train Text in the form of sentence being tokenized using the unsupervised learning.!
+        # tokenized  = custom_sent_tokenizer.tokenize(sample_text) # Tokenizing he Custom sentence tokenize
+        tokenized = custom_sent_tokenizer.tokenize(sentences)
+        self.process_content(tokenized)
+
 
 # This runs the Applications in the Program!
 
@@ -345,10 +452,53 @@ class NaturalProcessing:
 def run_apps (text_input=""):
     if text_input != "":
         if text_input == "calculator":
-            os.system('calc.exe')
+            os.system('calc.exe')  # Running the calculator in the Operating system
+        elif text_input == "notepad":
+            os.system('notepad.exe')  # Running the notepad using the Os module for the spoecified Atrtirbuote !
+        elif text_input == "performance monitor":
+            os.system('perfmon.exe')  # Launchign the Performance monitor from the exe
+        elif text_input == "smart screen":
+            os.system('smartscreen.exe')  # Working on the smart screen and running the Exe !
+        elif text_input == "space agent":
+            os.system('SpaceAgent.exe')  # Running the space agent for the
+        elif text_input == "network status":
+            os.system('netstat.exe')  # you are working ehre !
+        elif text_input == "bluetooth setting":
+            os.system('fsquirt.exe')  # you are working ehre !
+        elif text_input == "defragment":
+            os.system('Defrag.exe')  # you are working ehre !
+        elif text_input == 'clean manager':
+            os.system("cleanmgr.exe")
+        elif text_input == "command prompt":
+            os.system("cmd.exe")
+        elif text_input == 'direct ex' or text_input == 'direct setting':
+            os.system("dxdiag.exe")
+        elif text_input == "control panel":
+            os.system('control.exe')
+        elif text_input == 'resource monitor':
+            os.system('resmon.exe')  # this laucnhed the resource monitor to onitor the resourcr!!es of the comput
+        elif text_input == "game panel":
+            os.system('GamePanel.exe')
+        elif text_input == 'graphic settings':
+            os.system('Gfxv4_0.exe')  # this access the graphic cards
+        elif text_input == 'dpi scaling':
+            os.system('DipScaling.exe')  # this truns the dpi scalling for the partu
+        elif text_input == 'disk partition':
+            os.system('diskpart.exe')
+        elif text_input == 'python' or text_input == "python interpreter":
+            os.startfile(
+                "C:\\Users\\Programmer\\AppData\\Local\\Programs\\Python\\Python35\\pythonw.exe")  # this calls the file location and then run the program of the python.
+            # There you should run the pyton programming language so that the language will be specified by the face of the
+        elif text_input == "pycharm" or text_input == "python best interpreter":
+            os.startfile("C:\\Program Files (x86)\\JetBrains\\PyCharm 5.0.4\\bin\\pycharm.exe")
+            # --- This runs the pycharm Compiler which can be used for the Html or the python programming
+            # The Below function will be used to search on the browser and then show the desire result
+        elif text_input == "movie player":
+            print("started movie player!!!")
+            os.startfile(
+                "C:\\Program Files (x86)\\Windows Media Player\\wmplayer.exe")  # window media player execution!
 
 
-# The Below function will be used to search on the browser and then show the desire result
 def search_browser (text_input):
     print('-This is for the searching on browser-')
     try:
@@ -677,7 +827,7 @@ def text_to_speech (text_input='HI! my name is PYSHA and i am your assistant'):
 # This function is responsible for the defining of the particular session and then recording the particular input, and working on the continuous
 # Recognition of the voice.!
 
-def speech_to_text_wav (file_to_recognize):
+def speech_to_text_wav(file_to_recognize):
     r = sr.Recognizer()
 
     with sr.WavFile(str(file_to_recognize)) as source:  # use "test.wav" as the audio source
@@ -702,7 +852,7 @@ def speech_to_text_wav (file_to_recognize):
 # keep in mind to use the natural language processing ,, www.pythonprogramming.org
 
 # The below function is responsible for the text prcessing of the Total syaing ,, since what the user i ssaying is recorded in this
-def process_text_input (total_saying=""):
+def process_text_input(total_saying=""):
     total_saying = total_saying.strip()  # Stripping the string for the extra white spaces
     total_saying = total_saying.lower()  # Converting a string to lower case
     if total_saying == "quit" or total_saying.lower() == "stop listening" or total_saying.lower() == "stop" or total_saying.lower() == "exit":

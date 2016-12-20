@@ -61,3 +61,10 @@ USER SAID: 	show me a comic
 USER SAID: 	show me a comic
 USER SAID: 	show me a comic
 USER SAID: 	show me a comic
+USER SAID: 	show me a comic
+USER SAID: 	Searching on Browser : who's going to win the elections of 2016
+USER SAID: 	Searching on Browser : who's going to win the elections
+USER SAID: 	tell me a joke
+USER SAID: 	tell me a joke
+USER SAID: 	run calculator
+USER SAID: 	run python
