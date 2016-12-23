@@ -62,8 +62,10 @@ def process_content():
 if __name__ == '__main__':
     train_text = state_union.raw("2005-GWBUSH.txt")   # This is the train text which will be used to tokenize the sample Test(unsupervised learning)
     sample_text = state_union.raw("2006-GWBUSH.txt")  # This is the sample text which will be tokenized later onward
+    print(type(sample_text))
     custom_sent_tokenizer = PunktSentenceTokenizer(
         train_text)  # This is the Train Text in the form of sentence being tokenized using the unsupervised learning.!
-    tokenized  = custom_sent_tokenizer.tokenize(sample_text) # Tokenizing he Custom sentence tokenize
+    #tokenized  = custom_sent_tokenizer.tokenize(sample_text) # Tokenizing he Custom sentence tokenize
+    tokenized  = custom_sent_tokenizer.tokenize("Hi! my name is Shafay. I am 20 years old. I love playing games.")
     #print(tokenized) # this is just for the Debugging purposes!
     process_content()  # Calling the process content function!

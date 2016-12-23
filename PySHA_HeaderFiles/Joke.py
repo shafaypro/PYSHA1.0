@@ -61,13 +61,13 @@ class Joke(object):
                 root.mainloop()  # run the loop to show the gui image for the specified !
             except:
                 root = Tk()  # this is the tkinter module!
-                root.geometry('1000x1000')
-                canvas = Canvas(root, width=999, height=999)
-                canvas.pack()
-                photo = Image.open(location)
+                root.geometry('1000x1000')  # this is the Gemeortry specification for the specified root tkinter element
+                canvas = Canvas(root, width=999, height=999)  # this is hte canvas ration for the specified width and the height
+                canvas.pack() # packling the canvas in the frame for the specified root directory
+                photo = Image.open(location)  # this is the specification fo the location of the image
                 label_image = ImageTk.PhotoImage(photo)  # this adds up the photo image to the Label image
                 imagesprite = canvas.create_image(400, 400, image=label_image)
-                root.mainloop()
+                root.mainloop() # This is the main loop for the canvas frame for
 
     # There are some certain sites for the scrapping for the particular page and an api , which is
     # http://api.icndb.com/jokes/random/

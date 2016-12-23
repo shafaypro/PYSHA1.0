@@ -1,8 +1,8 @@
-import datetime
-import os
+import datetime   # Importing the datetime for the timing modules since the date time is used to answer the questions
+import os  # using the Operating systems for the particular os
 import pyttsx  # Python text to speech and speech to text
 import stat  # index constants for os.stat()
-import time
+import time  # importing the time module for the operating systems
 import urllib  # For the scrapping of the urllib
 import urllib.request  # urllib requirests for the scrapping of the website.
 import wave  # Importing the wave of for the recording(This is the format for the recording which is used .wav
@@ -15,18 +15,21 @@ import speech_recognition as sr  # Importing the speech recognition file for the
 import wikipedia  # using the wikipedia model
 from PIL import Image, ImageTk  # this is the PIL Package for the Picture Image Learning
 from bs4 import BeautifulSoup  # importing the beautiful soup for the web scraping !!!!!!
+import wolframalpha  # this is the wolfram package which will be used , at the end for the parsing of the text
 from nltk.stem import \
-    PorterStemmer  # this is  the steamer which will be used for the Steaming of the Tokenized Words (Drop down the words )
+    PorterStemmer  # this is  the steamer which will be used for the Steaming of the Tokenized Words
 from nltk.tokenize import word_tokenize, sent_tokenize,PunktSentenceTokenizer  # importing both of the tokenization packages form the modules
-from nltk.corpus import state_union # this imports the state union function which need to be taken in the corpus as the state union of the words.
+from nltk.corpus import state_union  # this imports the state union function which need to be taken in the corpus as the state union of the words.
+
 # this si the importing of the header files !
-# --
+# Pre requirements : You need to Install Microsoft SDK fo Speech and all the available Tools
+# Keep in mind that This is Under Heavy Construction and will be used in the later increments and
 
 '''
 // This build is heavily under progress by Muhammad Shafay Amjad, If you want to check all the dependencies,
 and want to contribute to improve the particular algorithm, check Repository.
-https://github.com/shafaypro/VirtualAssistant
-Info Dated: 24/10/2016  , WaterFall method is being Followed
+https://github.com/shafaypro/PYSHA1.0
+Info Dated: 23/12/2016  , WaterFall method is being Followed
 
 User Guideline:
 
@@ -60,7 +63,17 @@ RUN or OPEN _________ the Underscore should be replaced by the application name
 --> This script will also be monitroing the computer (Here it contains the data analysis and the data visualization part
 This will be including the statistical analysis and well as the sentimental analysis . ! so that this may be used in the later
 sequences of the version
--->
+--> ask for any operation ,, if other than all of the above , it will
+--> You can ask the Mathematical operation as : 2+ 3 or integeration of 4 or General Knowledge.
+--> Since It can also be asked the general knowledge questions like : who was the  6th president of Unitedstates
+
+
+!!!!!!!!!!!!!!!!!!!!!!!EXAMPLE QUESTIONS !!!!!!!!!!!!!!!!!!!!!!!!
+Who won the Election of 2016 in United states ?
+Who wrote the book The lord of the Flies ?
+What is the meaning of life ?
+What is the meaning of Nostalgia?
+bread <-- This will return the Other Requirements
 
 '''
 
@@ -70,6 +83,49 @@ And all the other things given to the Assistant so that it can work in there.
 '''
 __author__ = "M Shafay Amjad"
 __QA__ = "mshafayamjad@gmail.com"
+
+
+class WolFrameAlphaClass:
+    def __init__(self):
+        print("--------WFA--------")
+
+    # Basic usage is pretty simple. Create the client with your App ID (request from Wolfram Alpha):
+    def create_engine (self, search_input=''):  # this will create an engine
+        client = wolframalpha.Client(
+            app_id="23XUAT-H2875HHEEX")  # The app_id will be the application id which will be for the clientside.
+        res = client.query(
+            search_input)  # this will call the Client Function from the wolframaplha and then return the resources for the queries.
+        for single_pod in res.pods:
+            print(single_pod)  # you can do anything with the pod result here.
+            # Pod objects have subpods (a Subpod is a specific response with the plaintext reply and some additional info):
+
+            # for pod in res.pods:
+            #   for sub in pod.subpods:
+            #      #print(sub)
+            #     print(type(sub.text))
+            #    break
+            # break
+            # You may also query for simply the pods which have ‘Result’ titles or are marked as ‘primary’ using Result.results:
+            # print(next(res.results).text)
+
+    def search_engine (self, search_input=""):
+        try:
+            client = wolframalpha.Client(
+                app_id="23XUAT-H2875HHEEX")  # this is the client App id specification for the PYSHA
+            results = client.query(search_input)  # this searchs the input from the client side
+            answer = next(
+                results.results).text  # this gets the String Answered from the Search Engine . so that the answer spoken out by Pysha
+            print(answer)
+            return answer
+        except:
+            try:
+                results = wikipedia.summary(search_input,
+                                            sentences=2)  # this searches for the wikipedia summary input and then parse the input
+                print(results)
+                return results
+            except:
+                webbrowser.open(search_input)  # this will open the web browser
+                return
 
 
 class MusicPlayer:
@@ -268,7 +324,7 @@ class Monitor:
 
 # Reminders, this function will be used to remind you about things.
 class Reminders:
-    def __init__ (self):
+    def __init__ (self):  # this is the Constructor of the reminders
         print("Reminders Class Created !")
 
     def reminders_access (self, date=''):
@@ -363,7 +419,6 @@ class NaturalProcessing:
     def recognize_text (self):
         print("")
 
-    @staticmethod
     def steam_word_port (self, text=""):
         if text != "":
             tokenized_word = word_tokenize(text)  # this is the word tokenized !
@@ -424,16 +479,19 @@ class NaturalProcessing:
     WP$	possessive wh-pronoun	whose
     WRB	wh-abverb	where, when
     """
-    def process_content(tokenized=''):
+
+    def process_content (tokenized=''):
         try:
-            for i in tokenized[:5]:  # here we are applying sentence limit so we can use this one for the processing the sentences.
-                words = nltk.word_tokenize(i) # Tokenizes all the word , using the word tokenize!
+            for i in tokenized[
+                     :5]:  # here we are applying sentence limit so we can use this one for the processing the sentences.
+                words = nltk.word_tokenize(i)  # Tokenizes all the word , using the word tokenize!
                 tagged = nltk.pos_tag(words)  # Tags the specific words with the Natural language .
                 print(tagged)  # Prints the words with the Tags in the form of the tupple .!
 
 
         except Exception as e:
             print(str(e))  # if there is an exception then this prints out the exception
+
     def partofspeechtag (self, sentences=''):  # th
         train_text = state_union.raw(
             "2005-GWBUSH.txt")  # This is the train text which will be used to tokenize the sample Test(unsupervised learning)
@@ -499,8 +557,8 @@ def run_apps (text_input=""):
                 "C:\\Program Files (x86)\\Windows Media Player\\wmplayer.exe")  # window media player execution!
 
 
-def search_browser (text_input):
-    print('-This is for the searching on browser-')
+def search_browser(text_input):
+    print('-searching on browser-')
     try:
         url = 'http://google.com/search?q=' + text_input  # Creating or generating a google link for the particular file
         webbrowser.open(url)
@@ -517,7 +575,7 @@ def search_browser (text_input):
 # searching on the wikipedia and then asking the pysha to speak the respectable result!!
 
 
-def search_wiki (text_input):
+def search_wiki(text_input):
     # suggested_string = wikipedia.suggest(text_input)  # now going for the suggestion
     try:
         wiki_page = wikipedia.page(text_input)  # this opens up the wiki page for the particular thing
@@ -541,7 +599,7 @@ def search_wiki (text_input):
 
 # There are two dynamic ways for storing the Frontend , since this is a Hit and run trail using the function!
 # The Human computer interaction will be updated according to the software development module!
-def frontend_hci (label_text):
+def frontend_hci(label_text):
     root = Tk()  # This created the tkinter , face.!
     root.title("PYSHA 1.0")  # Making the Title for the Py Sha 1.0 ,
     root.geometry("300x300")  # specifying the x and the y axis in the scenario
@@ -552,7 +610,7 @@ def frontend_hci (label_text):
     root.mainloop()  # Executing the main loop for the Gui Till it gets exited
 
 
-def chat (input):
+def chat(input):
     insults = ["weirdo", "stupid", "weird", "dumb", "idiot", "retard", "retarded", "fat", "lazy",
                "annoying", "moron", "simp", "big", "ugly", "sad", "wimp", "troll"]
     complements = ["nice", "happy", "good", "smart", "wonderful", "really ", "intellegent", "awesome", "beautiful"]
@@ -675,7 +733,7 @@ def chat (input):
 # When there is a question regarding to the self , Like the questions given to the Pysha, or the personal question about her !
 # Since , The below Function is an already stored function by the developer, there are some processed required like
 # Machine learning should be implemented in here too, for the particular specific questions
-def Personal_PYSHA (text_input=""):
+def Personal_PYSHA(text_input=""):
     if text_input == "name":
         text_to_speech("PYSHA")
         return
@@ -701,7 +759,7 @@ def Personal_PYSHA (text_input=""):
 #  Follows the same day check priciple for the  particular day check<!
 
 
-def day_check ():
+def day_check():
     current_date = datetime.datetime.now()
     text_to_speech("The current date is " + str(current_date.date()))
     return
@@ -711,7 +769,7 @@ def day_check ():
 
 # IF the user asked for the particular time check , after the text processing this function is called ! ,
 # This later calls the text to speech function using the P.y.t.t.s.x. for the user to speak the particular output !
-def time_check ():
+def time_check():
     current_time = time.strftime('%H:%M:%S')
     text_to_speech("The time is " + current_time)
     return
@@ -720,7 +778,7 @@ def time_check ():
 # storing the respectable input for the user  while the computer will be able to use the resources and speak
 
 
-def store_userinput (input_check):
+def store_userinput(input_check):
     file_out = open("USERINPUT.txt", "a")
     file_out.writelines("USER SAID: \t" + input_check)
     file_out.write("\n")  # ending the line with the next line
@@ -732,7 +790,7 @@ def store_userinput (input_check):
 # Converting the spoken string to the speech , so that the call is Visible
 
 
-def speech_to_text ():
+def speech_to_text():
     client_id = ""  # this is the google api client id
     client_secret = ""  # this is the google api client secret key
     api_key = ""
@@ -771,7 +829,7 @@ def speech_to_text ():
 # The duration ins specified by the user, since the default value passed from the main funtion is 7 seconds,
 # since the short term memory duration is 5 +- 2 So , for the maximum iof seven seconds.!!!
 
-def record_something (duration):
+def record_something(duration):
     # Below the Audio is accessed and then the audio is recorded and then converted in to text
     CHUNK = 1024  # Specifying the chunks for the recording
     FORMAT = pyaudio.paInt16  # the Format is picked up from the pyaudio
@@ -815,7 +873,7 @@ def record_something (duration):
 # Converting the text to speech using the pysha personal assistant and then specifing the input!
 
 # Machine Speaking!
-def text_to_speech (text_input='HI! my name is PYSHA and i am your assistant'):
+def text_to_speech(text_input='HI! my name is PYSHA and i am your assistant'):
     engine = pyttsx.init()
     engine.say(text_input)
     engine.runAndWait()
@@ -865,9 +923,11 @@ def process_text_input(total_saying=""):
             Below is the place where are your working on!!!
 
             '''
-        if total_saying.startswith('search for'):
+        if total_saying.startswith('search for') or total_saying.startswith('google '):
             text_to_speech("Opening a Browser For you.")
             store_userinput("Searching on Browser :" + total_saying[10:])
+            total_saying = total_saying.replace('search for', '')  # Replacing the Search for with the total saying .
+            total_saying = total_saying.replace('google', '')  # Replacing the Key word Googe with it
             search_browser(
                 text_input=total_saying[10:])  # sending every remanining thing to the Browser to browse for
 
@@ -880,11 +940,11 @@ def process_text_input(total_saying=""):
             sma.social_media_access(
                 browse_key=browse_key)  # Passing the browser key to the social media access function.
 
-        elif total_saying.__contains__('on wikipedia') and total_saying.startswith('search'):
+        elif (total_saying.__contains__('wikipedia') and total_saying.startswith('search')) or (total_saying.__contains__('on wikipedia') and total_saying.startswith('search')):
             total_saying = total_saying  # this converts the string to the lower case
             total_saying = total_saying.replace('search', '')  # replacing the start with the empty string
             total_saying = total_saying.replace('on wikipedia', '')  # replacing the on wikiepdia with empty string
-            text_to_speech("Searching on WIkipedia..")
+            text_to_speech('Searching on Wikipedia')
             search_wiki(total_saying)  # calling the wikipedia search function , for the results
 
         elif total_saying.startswith("what is the date") or total_saying == 'date':
@@ -929,12 +989,26 @@ def process_text_input(total_saying=""):
             total_saying = total_saying.replace('open ', '')  # replacing the word open with the Total_saying!
             total_saying = total_saying.replace('run ', '')  # This is the replacement of the run with the
             run_apps(total_saying)  # This is the total saying being passed to the Running apps. !
+        elif total_saying.startswith('parse sentences') or total_saying.startswith('parse this'):
+            store_userinput(total_saying)
+            total_saying = total_saying.replace('parse sentence',
+                                                '')  # replacing the total saying with the parse sentence
+            total_saying = total_saying.replace('parse this', '')  # replacing the total saying of the parse this with none !
+            np = NaturalProcessing()  # creting the object of the classs
+            # -------------You are working here -------------
+            tokenized_sentences_return = np.word_tokeniztion(total_saying)  # this parse the Np with the tokenizing of the words
+            print(tokenized_sentences_return)  # this prints the TOkenized the words
+
         else:
-            chat(total_saying)
-            # .###.....
+            # since this is a computation engine that will be used for the computation of the question asked .!
+            WFM = WolFrameAlphaClass()  # creating the wolframapla class that will be used for the cretion of the api assistant
+            WFM_backstring = WFM.search_engine(total_saying)  # this searches the WOlframAlpha for the Search Strings
+            if WFM_backstring != "":  # if the input returned from the Wolframalpha turns out to be null then leave it .
+                text_to_speech(WFM_backstring)  # this converts text to speech
+                # .###.....
 
 
-def main ():
+def main():  # main program access
     print("--")
     # duration = float(input("How much time you need to record for ?"))
     # record_something(duration)  just trying to pause the thing

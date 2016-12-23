@@ -68,3 +68,5 @@ USER SAID: 	tell me a joke
 USER SAID: 	tell me a joke
 USER SAID: 	run calculator
 USER SAID: 	run python
+USER SAID: 	Searching on Browser : news on trump
+USER SAID: 	tell me a joke

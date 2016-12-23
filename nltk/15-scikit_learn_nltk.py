@@ -1,9 +1,9 @@
 import random
 import nltk
 from nltk.corpus import movie_reviews
-from sklearn.naive_bayes import MultinomialNB, BernoulliNB
+from sklearn.naive_bayes import Multi BNnomialNB, BernoulliNB
 from nltk.classify.scikitlearn import SklearnClassifier
-
+from numpy._distributor_init import NUMPY_MKL
 def find_features(document):
     words = set(document)  # Since we want the document to be in the form of the iteration , so we use the set
     features = {}  # Since the feature is a part of the dictionary
