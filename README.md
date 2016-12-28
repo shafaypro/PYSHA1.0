@@ -1,5 +1,4 @@
-# The Owner of this Code is Shafay(THough you can have it completely open source), A Computer Science Student,python programmer and data scientist.
-454-BSCS-13 E2 GCU LAHORE
+
 ############################################PYSHA1.0#################################################
 "VIRTUAL ASSISTANT BY SHAFAY"
 
@@ -92,3 +91,10 @@ For the personal computer you need to have the computer access,
 And all the other things given to the Assistant so that it can work in there.
 '''
 since the api is then accessed and the chunks of the audio is converted into the string and then returned into the string
+
+
+
+
+##########################################################################################################################################
+# The Owner of this Code is Shafay(THough you can have it completely open source), A Computer Science Student,python programmer 
+454-BSCS-13 E2 GCU LAHORE
