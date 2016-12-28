@@ -1,4 +1,4 @@
-# The Owner of this Code is Shafay, A Computer Science Student,python programmer and data scientist.
+# The Owner of this Code is Shafay(THough you can have it completely open source), A Computer Science Student,python programmer and data scientist.
 454-BSCS-13 E2 GCU LAHORE
 ############################################PYSHA1.0#################################################
 "VIRTUAL ASSISTANT BY SHAFAY"
