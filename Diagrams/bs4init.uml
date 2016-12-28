@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Python</ID>
+  <OriginalElement>#C:/Users/Programmer/Desktop/FYP DIAGRAMS/self created/bs4/__init__.py</OriginalElement>
+  <nodes>
+    <node x="1175.6118421052631" y="1480.0">_collections_abc.Container</node>
+    <node x="3180.1118421052633" y="3045.5">Exception</node>
+    <node x="3139.3618421052633" y="4269.5">bs4.StopParsing</node>
+    <node x="473.6118421052631" y="1436.0">_collections_abc.Sequence</node>
+    <node x="2392.9144736842104" y="146.0">object</node>
+    <node x="3275.3618421052633" y="4247.5">ValueError</node>
+    <node x="2150.4144736842104" y="0.0">_collections_abc.Hashable</node>
+    <node x="3053.6118421052633" y="1337.0">BaseException</node>
+    <node x="1000.5" y="4756.0">bs4.BeautifulStoneSoup</node>
+    <node x="791.6118421052631" y="1469.0">_collections_abc.Iterator</node>
+    <node x="996.6118421052631" y="1480.0">_collections_abc.Iterable</node>
+    <node x="3314.8618421052633" y="4767.0">bs4.FeatureNotFound</node>
+    <node x="39.61184210526312" y="1480.0">_collections_abc.Sized</node>
+    <node x="1395.6118421052631" y="754.0">bs4.element.PageElement</node>
+    <node x="0.0" y="2352.0">bs4.element.Tag</node>
+    <node x="310.5" y="3862.0">bs4.BeautifulSoup</node>
+    <node x="217.61184210526312" y="1480.0">_collections_abc.Callable</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="bs4.BeautifulStoneSoup" target="bs4.BeautifulSoup">
+      <point x="0.0" y="-25.5" />
+      <point x="0.0" y="422.0" />
+    </edge>
+    <edge source="bs4.StopParsing" target="Exception">
+      <point x="0.0" y="-14.5" />
+      <point x="3197.3618421052633" y="3837.0" />
+      <point x="3236.3618421052633" y="3837.0" />
+      <point x="-56.25" y="36.5" />
+    </edge>
+    <edge source="object" target="_collections_abc.Hashable">
+      <point x="0.0" y="-279.0" />
+      <point x="2733.9144736842104" y="121.0" />
+      <point x="2275.6644736842104" y="121.0" />
+      <point x="41.75" y="48.0" />
+    </edge>
+    <edge source="bs4.element.Tag" target="_collections_abc.Sized">
+      <point x="-965.125" y="-730.0" />
+      <point x="137.875" y="2332.0" />
+      <point x="118.61184210526312" y="2332.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="Exception" target="BaseException">
+      <point x="0.0" y="-36.5" />
+      <point x="0.0" y="191.0" />
+    </edge>
+    <edge source="bs4.element.Tag" target="_collections_abc.Iterator">
+      <point x="-137.875" y="-730.0" />
+      <point x="965.125" y="2332.0" />
+      <point x="884.1118421052631" y="2332.0" />
+      <point x="0.0" y="59.0" />
+    </edge>
+    <edge source="bs4.BeautifulSoup" target="bs4.element.Tag">
+      <point x="0.0" y="-422.0" />
+      <point x="0.0" y="730.0" />
+    </edge>
+    <edge source="bs4.element.Tag" target="_collections_abc.Sequence">
+      <point x="-413.625" y="-730.0" />
+      <point x="689.375" y="2332.0" />
+      <point x="622.6118421052631" y="2332.0" />
+      <point x="0.0" y="92.0" />
+    </edge>
+    <edge source="bs4.element.Tag" target="bs4.element.PageElement">
+      <point x="965.125" y="-730.0" />
+      <point x="2068.125" y="2332.0" />
+      <point x="2214.611842105263" y="2332.0" />
+      <point x="0.0" y="774.0" />
+    </edge>
+    <edge source="bs4.element.Tag" target="_collections_abc.Callable">
+      <point x="-689.375" y="-730.0" />
+      <point x="413.625" y="2332.0" />
+      <point x="335.6118421052631" y="2332.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="bs4.element.Tag" target="_collections_abc.Iterable">
+      <point x="137.875" y="-730.0" />
+      <point x="1240.875" y="2332.0" />
+      <point x="1076.1118421052631" y="2332.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="BaseException" target="object">
+      <point x="0.0" y="-191.0" />
+      <point x="3292.6118421052633" y="729.0" />
+      <point x="2904.4144736842104" y="729.0" />
+      <point x="170.5" y="279.0" />
+    </edge>
+    <edge source="bs4.element.Tag" target="_collections_abc.Container">
+      <point x="413.625" y="-730.0" />
+      <point x="1516.625" y="2332.0" />
+      <point x="1275.1118421052631" y="2332.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="ValueError" target="Exception">
+      <point x="0.0" y="-36.5" />
+      <point x="3387.8618421052633" y="3837.0" />
+      <point x="3348.8618421052633" y="3837.0" />
+      <point x="56.25" y="36.5" />
+    </edge>
+    <edge source="bs4.element.PageElement" target="object">
+      <point x="0.0" y="-774.0" />
+      <point x="2214.611842105263" y="729.0" />
+      <point x="2563.4144736842104" y="729.0" />
+      <point x="-170.5" y="279.0" />
+    </edge>
+    <edge source="bs4.FeatureNotFound" target="ValueError">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="bs4.element.Tag" target="_collections_abc.Hashable">
+      <point x="689.375" y="-730.0" />
+      <point x="1792.375" y="2322.0" />
+      <point x="1385.1118421052631" y="2322.0" />
+      <point x="1385.1118421052631" y="121.0" />
+      <point x="2192.1644736842104" y="121.0" />
+      <point x="-41.75" y="48.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="639.5" y="1608.3893283618872" />
+  <SelectedNodes>
+    <node>_collections_abc.Callable</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+    <Category>Fields</Category>
+  </Categories>
+</Diagram>
+
