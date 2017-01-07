@@ -70,3 +70,13 @@ USER SAID: 	run calculator
 USER SAID: 	run python
 USER SAID: 	Searching on Browser : news on trump
 USER SAID: 	tell me a joke
+USER SAID: 	Searching on Browser : fedex directly on google
+USER SAID: 	Search on Youtube : python tutorial
+USER SAID: 	Question Asked :  who was the
+USER SAID: 	Search on Youtube :search  for $500
+USER SAID: 	Search on Youtube :search  for 5:28.
+USER SAID: 	Search on Stackoverflow : python error 5
+USER SAID: 	Search on Youtube :  for python gui tutorial
+USER SAID: 	Search on Youtube : 500 miles
+USER SAID: 	Question Asked :  when was allama iqbal born
+USER SAID: 	Question Asked :  how many euros are in one pound

@@ -1,4 +1,4 @@
-import datetime   # Importing the datetime for the timing modules since the date time is used to answer the questions
+import datetime  # Importing the datetime for the timing modules since the date time is used to answer the questions
 import os  # using the Operating systems for the particular os
 import pyttsx  # Python text to speech and speech to text
 import stat  # index constants for os.stat()
@@ -18,8 +18,12 @@ from bs4 import BeautifulSoup  # importing the beautiful soup for the web scrapi
 import wolframalpha  # this is the wolfram package which will be used , at the end for the parsing of the text
 from nltk.stem import \
     PorterStemmer  # this is  the steamer which will be used for the Steaming of the Tokenized Words
-from nltk.tokenize import word_tokenize, sent_tokenize,PunktSentenceTokenizer  # importing both of the tokenization packages form the modules
-from nltk.corpus import state_union  # this imports the state union function which need to be taken in the corpus as the state union of the words.
+from nltk.tokenize import word_tokenize, sent_tokenize, \
+    PunktSentenceTokenizer  # importing both of the tokenization packages form the modules
+from nltk.corpus import \
+    state_union  # this imports the state union function which need to be taken in the corpus as the state union of the words.
+import pygame  # pygame , python game module for the playing of the Audio files
+from nltk.corpus import stopwords  # locating the stop words.
 
 # this si the importing of the header files !
 # Pre requirements : You need to Install Microsoft SDK fo Speech and all the available Tools
@@ -75,6 +79,16 @@ What is the meaning of life ?
 What is the meaning of Nostalgia?
 bread <-- This will return the Other Requirements
 
+
+--------------------------Example Programming SOlution -----------------------
+ask --> Stack over flow search _____________
+______ replace this with your querry
+ask--> search youtube ____________ or youtube _________________
+search youtube ___________________
+______ replace this with your querry
+or youtube ___________________
+
+
 '''
 
 ''' Keep in mind to have all the back up things,
@@ -83,16 +97,19 @@ And all the other things given to the Assistant so that it can work in there.
 '''
 __author__ = "M Shafay Amjad"
 __QA__ = "mshafayamjad@gmail.com"
+__version__ = 1.0
+__productname__ = "PYSHA"
 
 
+# TODO : use the Wolframealpha pods to display the pictures and the solutions of the Specified questions too
 class WolFrameAlphaClass:
-    def __init__(self):
+    def __init__ (self):
         print("--------WFA--------")
 
     # Basic usage is pretty simple. Create the client with your App ID (request from Wolfram Alpha):
     def create_engine (self, search_input=''):  # this will create an engine
         client = wolframalpha.Client(
-            app_id="")  # The app_id will be the application id which will be for the clientside.!!!!!! Add the app-id from the wolframalpha here
+            app_id="23XUAT-H2875HHEEX")  # The app_id will be the application id which will be for the clientside.
         res = client.query(
             search_input)  # this will call the Client Function from the wolframaplha and then return the resources for the queries.
         for single_pod in res.pods:
@@ -128,12 +145,50 @@ class WolFrameAlphaClass:
                 return
 
 
-class MusicPlayer:
+# ToDO: You can improve the Search using the OAUTH and other apis of the stack over flow
+class StackoverFlow:
     def __init__ (self):
         pass
+
+    def search (self, search_text=''):
+        search_text = search_text.strip()
+        search_text = search_text.replace(' ', '+')  # This replaces the spaces with the + sign
+        search_url = "http://stackoverflow.com/search?q=" + search_text
+        webbrowser.open(search_url)
+        #
+
+
+# TODO  : Use youtube api , instead of the static Youtube References
+class YouTubeSearch:
+    def __init__ (self):
+        pass
+
+    def search (self, search_text=''):
+        search_text = search_text.strip()
+        search_text = search_text.replace(' ', '+')  # This replaces the spaces with the + sign
+        search_url = "https://www.youtube.com/results?search_query=" + search_text
+        webbrowser.open(search_url)  # this opens the url on the webbrowser
+
+
+class MusicPlayer:
+    def __init__ (self):
+        pygame.mixer.init()
         # this class will be responsible for the playing of the music and the specific things
 
+    def play_music (self, song_name=""):
+        pygame.mixer.music.load(song_name)  # this loads the Pygame music in the pygame module
+        pygame.mixer.music.play()  # plays the music specified.
+        pass  # here you will be adding the features for playing the music
 
+    def stop_music (self):
+        pygame.mixer.music.stop()  # Stops the Music Which is being played
+
+    def play_music_start (self,
+                          song_name):  # here the play music will be provided with the starting and the ending of the music.
+        pass
+
+
+# TODO : File Information needs to be implemented
 class FileCheck:
     def __init__ (self):
         print("")
@@ -182,6 +237,7 @@ This is the personal Computer Reverse shell!
 '''
 
 
+# TODO Reverse shell need to be created
 class Reverse_Shell:
     def __init__ (self):
         print("Contacting the Home Server ( Reverse shell) ")
@@ -198,6 +254,8 @@ class Reverse_Shell:
 '''
 
 
+# TODO : Jokes are needed to be fetched Other than Chuck Norris :D
+# TODO : Requests for the COmic Produce error Sometimes due to the PIL header file supporting Other Formats.
 class Joke(object):
     def __init__ (self, input_text=""):
         print("")
@@ -296,6 +354,7 @@ class WeatherChecking:
             'This function will be responsible for telling the current weather for the particular city or Longitude and latitude.')
 
 
+# TODO : text mode needs to be created
 # going in the form of the chat bot, since the particular chat bot will be used
 class TextMode:
     def __init__ (self):
@@ -313,6 +372,7 @@ Monitor class will be responsible for the Monitoring for the cerrain syustem com
 '''
 
 
+# TODO : Class will be Monitoring the Current PC.
 class Monitor:
     def __init__ (self):
         print("Monitoring class instance has been created ")
@@ -322,6 +382,7 @@ class Monitor:
         print("This will be the responsible for the monitoring of the certain things happening in thecomputers")
 
 
+# toDO need to create the reminders class
 # Reminders, this function will be used to remind you about things.
 class Reminders:
     def __init__ (self):  # this is the Constructor of the reminders
@@ -353,6 +414,8 @@ class Reminders:
 # keep in mind that it can also be used for the other queries like loggin into the particular websites.
 # These all moduels are under progress,
 # Development module will be started building after 30 november 2016, !
+
+# TODO : Social Media Access like facebook , Instagram and others
 class SocialMedia:
     def __int__ (self):
         print("This is the Constructor of the class Social media")
@@ -404,6 +467,7 @@ class SocialMedia:
 
 
 # Using the Image Processing !!
+# TODO : if you want to detect the User Holding CUP OR STUFF use OpenCV2 here Under Construction
 class ImageProcessing:
     def __init__ (self):
         print("This is the Image processing Class , since it will be using the iopen cv 2 application")
@@ -412,6 +476,7 @@ class ImageProcessing:
         print("Recognition The face here!")
 
 
+# TODO : IMplementation of the AI
 class NaturalProcessing:
     def __init__ (self):
         print("NONCE!!!!")
@@ -437,6 +502,17 @@ class NaturalProcessing:
                 Tokenized_words = word_tokenize(
                     text)  # this converts te passed stirng to the word tokenized for the scanning of the probability
                 return Tokenized_words  # This returns the tokenized words !
+
+    def stop_words_exclude (sentences=''):
+        stop_words = set(stopwords.words('english'))  # English words are parssed out which are meaning less
+        word_tokens = word_tokenize(sentences)
+        filtered_sentences = [w for w in word_tokens if
+                              w not in stop_words]  # this is the list of the filtered sentence
+        ''' Alternative code for the word tokenization
+        for w in word_tokens: # loop through each of the word in the word tokens!
+            if w not in stop_words:  # if the word is not i nStop words Then
+                filtered_sentence.append(w)]'''
+        return filtered_sentences
 
     """
     One of the most powerful aspects of NLTK module is the parts of speech ,
@@ -506,7 +582,7 @@ class NaturalProcessing:
 
 # This runs the Applications in the Program!
 
-
+# TODO : more Accurate apps running
 def run_apps (text_input=""):
     if text_input != "":
         if text_input == "calculator":
@@ -557,7 +633,8 @@ def run_apps (text_input=""):
                 "C:\\Program Files (x86)\\Windows Media Player\\wmplayer.exe")  # window media player execution!
 
 
-def search_browser(text_input):
+# TODO : Exact Searching
+def search_browser (text_input):
     print('-searching on browser-')
     try:
         url = 'http://google.com/search?q=' + text_input  # Creating or generating a google link for the particular file
@@ -574,8 +651,8 @@ def search_browser(text_input):
 
 # searching on the wikipedia and then asking the pysha to speak the respectable result!!
 
-
-def search_wiki(text_input):
+# TODO : WIkI Algorithum improvment
+def search_wiki (text_input):
     # suggested_string = wikipedia.suggest(text_input)  # now going for the suggestion
     try:
         wiki_page = wikipedia.page(text_input)  # this opens up the wiki page for the particular thing
@@ -599,7 +676,9 @@ def search_wiki(text_input):
 
 # There are two dynamic ways for storing the Frontend , since this is a Hit and run trail using the function!
 # The Human computer interaction will be updated according to the software development module!
-def frontend_hci(label_text):
+
+# TODO: Frontend HCI needs to be created !
+def frontend_hci (label_text):
     root = Tk()  # This created the tkinter , face.!
     root.title("PYSHA 1.0")  # Making the Title for the Py Sha 1.0 ,
     root.geometry("300x300")  # specifying the x and the y axis in the scenario
@@ -610,7 +689,8 @@ def frontend_hci(label_text):
     root.mainloop()  # Executing the main loop for the Gui Till it gets exited
 
 
-def chat(input):
+# TODO : make the Chat intelligent , using the Natural language processing and AIML (artifical intelligence markup language)
+def chat (input):
     insults = ["weirdo", "stupid", "weird", "dumb", "idiot", "retard", "retarded", "fat", "lazy",
                "annoying", "moron", "simp", "big", "ugly", "sad", "wimp", "troll"]
     complements = ["nice", "happy", "good", "smart", "wonderful", "really ", "intellegent", "awesome", "beautiful"]
@@ -733,7 +813,8 @@ def chat(input):
 # When there is a question regarding to the self , Like the questions given to the Pysha, or the personal question about her !
 # Since , The below Function is an already stored function by the developer, there are some processed required like
 # Machine learning should be implemented in here too, for the particular specific questions
-def Personal_PYSHA(text_input=""):
+# TODO : Do some of the Complex parsing
+def Personal_PYSHA (text_input=""):
     if text_input == "name":
         text_to_speech("PYSHA")
         return
@@ -758,8 +839,8 @@ def Personal_PYSHA(text_input=""):
 # this is the particular day check , that the user will be defining the day check ,since the day
 #  Follows the same day check priciple for the  particular day check<!
 
-
-def day_check():
+# TODO NOTHING
+def day_check ():
     current_date = datetime.datetime.now()
     text_to_speech("The current date is " + str(current_date.date()))
     return
@@ -769,7 +850,8 @@ def day_check():
 
 # IF the user asked for the particular time check , after the text processing this function is called ! ,
 # This later calls the text to speech function using the P.y.t.t.s.x. for the user to speak the particular output !
-def time_check():
+# TODO : Nothing
+def time_check ():
     current_time = time.strftime('%H:%M:%S')
     text_to_speech("The time is " + current_time)
     return
@@ -777,8 +859,8 @@ def time_check():
 
 # storing the respectable input for the user  while the computer will be able to use the resources and speak
 
-
-def store_userinput(input_check):
+# TODO: add sqlite3 database and store the input in the form of the data base
+def store_userinput (input_check):
     file_out = open("USERINPUT.txt", "a")
     file_out.writelines("USER SAID: \t" + input_check)
     file_out.write("\n")  # ending the line with the next line
@@ -789,8 +871,8 @@ def store_userinput(input_check):
 
 # Converting the spoken string to the speech , so that the call is Visible
 
-
-def speech_to_text():
+# TODO : speech to Text   (Google api, Microsoft Speech recording )
+def speech_to_text ():
     client_id = ""  # this is the google api client id
     client_secret = ""  # this is the google api client secret key
     api_key = ""
@@ -828,8 +910,8 @@ def speech_to_text():
 
 # The duration ins specified by the user, since the default value passed from the main funtion is 7 seconds,
 # since the short term memory duration is 5 +- 2 So , for the maximum iof seven seconds.!!!
-
-def record_something(duration):
+# TIps : Using the Wave , which is built by the microsoft
+def record_something (duration):
     # Below the Audio is accessed and then the audio is recorded and then converted in to text
     CHUNK = 1024  # Specifying the chunks for the recording
     FORMAT = pyaudio.paInt16  # the Format is picked up from the pyaudio
@@ -873,7 +955,7 @@ def record_something(duration):
 # Converting the text to speech using the pysha personal assistant and then specifing the input!
 
 # Machine Speaking!
-def text_to_speech(text_input='HI! my name is PYSHA and i am your assistant'):
+def text_to_speech (text_input='HI! my name is PYSHA and i am your assistant'):
     engine = pyttsx.init()
     engine.say(text_input)
     engine.runAndWait()
@@ -885,22 +967,25 @@ def text_to_speech(text_input='HI! my name is PYSHA and i am your assistant'):
 # This function is responsible for the defining of the particular session and then recording the particular input, and working on the continuous
 # Recognition of the voice.!
 
-def speech_to_text_wav(file_to_recognize):
+def speech_to_text_wav (file_to_recognize):
     r = sr.Recognizer()
 
     with sr.WavFile(str(file_to_recognize)) as source:  # use "test.wav" as the audio source
         audio = r.record(source)  # extract audio data from the file
 
     try:
-
         total_saying = r.recognize_google(audio)
+        # if total_saying != "" or total_saying != NONE:
+        #   text_to_speech("processing the audio")
         print("you said: " + total_saying)  # recognize speech using Google Speech Recognition
+        # text_to_speech("You said ")
         # here i will be working on latter analysis
         total_saying = str(total_saying).lower()  # converting the total saying to the strings
         process_text_input(total_saying)
 
     except LookupError:  # speech is unintelligible
         print("Could not understand audio")
+        text_to_speech("I Couldn't understand the audio")
     except sr.UnknownValueError:
         print("UNKNOWN!!")
 
@@ -910,7 +995,7 @@ def speech_to_text_wav(file_to_recognize):
 # keep in mind to use the natural language processing ,, www.pythonprogramming.org
 
 # The below function is responsible for the text prcessing of the Total syaing ,, since what the user i ssaying is recorded in this
-def process_text_input(total_saying=""):
+def process_text_input (total_saying=""):
     total_saying = total_saying.strip()  # Stripping the string for the extra white spaces
     total_saying = total_saying.lower()  # Converting a string to lower case
     if total_saying == "quit" or total_saying.lower() == "stop listening" or total_saying.lower() == "stop" or total_saying.lower() == "exit":
@@ -940,7 +1025,8 @@ def process_text_input(total_saying=""):
             sma.social_media_access(
                 browse_key=browse_key)  # Passing the browser key to the social media access function.
 
-        elif (total_saying.__contains__('wikipedia') and total_saying.startswith('search')) or (total_saying.__contains__('on wikipedia') and total_saying.startswith('search')):
+        elif (total_saying.__contains__('wikipedia') and total_saying.startswith('search')) or (
+                    total_saying.__contains__('on wikipedia') and total_saying.startswith('search')):
             total_saying = total_saying  # this converts the string to the lower case
             total_saying = total_saying.replace('search', '')  # replacing the start with the empty string
             total_saying = total_saying.replace('on wikipedia', '')  # replacing the on wikiepdia with empty string
@@ -972,12 +1058,14 @@ def process_text_input(total_saying=""):
         elif total_saying == "show me a comic":
             store_userinput("show me a comic")
             joke_object = Joke()  # creating an object of ht Joke class !
+            text_to_speech("Fetching the Database")
             joke_object.Image_Joke()  # Calls the Joke class Image Joke Object to show a Joke in the form of an image
 
         elif total_saying == "tell me a joke" or total_saying == "tell me another joke":
             print("JOKE JOKE JOKE!!!")
             store_userinput("tell me a joke")
             joke_object = Joke()
+            text_to_speech("OH wait")
             joke_text = joke_object.joke_category()  # Calls any nerdy or Explicit joke about Chuck Norris.!
             # frontend_HCI(Joke_Text)  # calling the tkinter library to create the joke for the particular thing ,
             print(
@@ -989,26 +1077,60 @@ def process_text_input(total_saying=""):
             total_saying = total_saying.replace('open ', '')  # replacing the word open with the Total_saying!
             total_saying = total_saying.replace('run ', '')  # This is the replacement of the run with the
             run_apps(total_saying)  # This is the total saying being passed to the Running apps. !
-        elif total_saying.startswith('parse sentences') or total_saying.startswith('parse this'):
+        elif total_saying.startswith('parse sentence') or total_saying.startswith(
+                'parse this') or total_saying.startswith('tokenize this'):
             store_userinput(total_saying)
+            total_saying = total_saying.replace('tokenize this', '')
             total_saying = total_saying.replace('parse sentence',
                                                 '')  # replacing the total saying with the parse sentence
-            total_saying = total_saying.replace('parse this', '')  # replacing the total saying of the parse this with none !
+            total_saying = total_saying.replace('parse this',
+                                                '')  # replacing the total saying of the parse this with none !
             np = NaturalProcessing()  # creting the object of the classs
             # -------------You are working here -------------
-            tokenized_sentences_return = np.word_tokeniztion(total_saying)  # this parse the Np with the tokenizing of the words
+            tokenized_sentences_return = np.word_tokeniztion(
+                total_saying)  # this parse the Np with the tokenizing of the words
             print(tokenized_sentences_return)  # this prints the TOkenized the words
-
-        else:
+        elif total_saying.startswith("youtube") or total_saying.startswith(
+                "search on youtube") or total_saying.startswith("search youtube") or total_saying.startswith(
+            "youtube search"):
+            total_saying = total_saying.replace("search", '')
+            total_saying = total_saying.replace("search on youtube", "")
+            total_saying = total_saying.replace("youtube", "")
+            total_saying = total_saying.replace("search youtube", "")
+            total_saying = total_saying.replace("youtube search", "")
+            text_to_speech("Searching on youtube for : " + total_saying)
+            store_userinput("Search on Youtube :" + total_saying)
+            Y = YouTubeSearch()  # Creates in the Youtube Class
+            text_to_speech('Displaying Results')
+            Y.search(total_saying)  # Sends the Total Saying to the Youtube Search Function
+            text_to_speech('Youtube Result Shown!')
+        elif total_saying.startswith('stack over flow') or total_saying.startswith(
+                'stackoverflow') or total_saying.startswith(
+                'search stack over flow') or total_saying.startswith('stack search'):
+            total_saying = total_saying.replace('stackoverflow', '')
+            total_saying = total_saying.replace('stack over flow', '')
+            total_saying = total_saying.replace('search stack over flow', '')
+            total_saying = total_saying.replace('stack', '')
+            total_saying = total_saying.replace('stack search', '')
+            text_to_speech('Search on Stackoverflow' + total_saying)
+            store_userinput('Search on Stackoverflow :' + total_saying)
+            SOF = StackoverFlow()  # -- Creates the Object Stack over flow class and calls the search function
+            SOF.search(total_saying)
+            text_to_speech("Stack over flow Results Shown")
+        elif total_saying.startswith('question'):
+            total_saying = total_saying.replace('question', '')
+            store_userinput('Question Asked : ' + total_saying)
             # since this is a computation engine that will be used for the computation of the question asked .!
             WFM = WolFrameAlphaClass()  # creating the wolframapla class that will be used for the cretion of the api assistant
+            text_to_speech('searching database')
             WFM_backstring = WFM.search_engine(total_saying)  # this searches the WOlframAlpha for the Search Strings
             if WFM_backstring != "":  # if the input returned from the Wolframalpha turns out to be null then leave it .
                 text_to_speech(WFM_backstring)  # this converts text to speech
                 # .###.....
 
 
-def main():  # main program access
+# TODO : Make it a little more intelligent
+def main ():  # main program access
     print("--")
     # duration = float(input("How much time you need to record for ?"))
     # record_something(duration)  just trying to pause the thing
@@ -1027,3 +1149,7 @@ def main():  # main program access
 if __name__ == '__main__':
     main()  # Calling the main Function .!!
 # The above the Audio has been recorded , and now the Audio needs to be converted into texts/
+
+#Machine Learning book + NLTK BOOK need to be studied  with Plotting and OPENCV2
+
+## Work with the MEGA VOICE COMMAND AFTER THE EXAM HAVE BEEN FINISHED.
